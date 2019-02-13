@@ -1,5 +1,6 @@
 package ule.edi.event;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,14 +20,22 @@ public class EventArrayImpl implements Event {
 	private int nSilver;  // Nº de butacas de tipo SILVER
 	
 	private Seat[] gold;
-	private Seat[] silver;
-	
-	
+	private Seat[] silver;	
 	
    public Double getPriceGold() {
 		return priceGold;
 	}
 
+   public void setGoldSeats(int nGold) {
+		this.nGold = nGold;
+		gold = new Seat[nGold];
+		  
+
+	}
+   public void setSilvereats(int nSilver) {
+		this.nSilver = nSilver;
+		silver = new Seat[nSilver];
+	}
 
 	public void setPriceGold(Double priceGold) {
 		this.priceGold = priceGold;
@@ -42,10 +51,15 @@ public class EventArrayImpl implements Event {
 		this.priceSilver = priceSilver;
 	}
 
-
-public EventArrayImpl(String name, Date date, int nGold, int nSilver){
+public EventArrayImpl(String name, Date date, int nGold, int nSilver, Seat[]gold, Seat[]silver){
+	 this.name = name;
+	 this.date = date;
+	 this.nSilver = nSilver;
+	 this.nGold =nGold;
+	 this.gold = new Seat[nGold];
+	 this.silver = new Seat[nSilver];
 	
-	   //TODO 
+	//TODO 
 	   // utiliza los precios por defecto: DEFAULT_PRICE_GOLD y DEFAULT_PRICE_SILVER definidos en Configuration.java
 	   
 	   // Debe crear los arrays de butacas gold y silver
@@ -53,11 +67,14 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver){
    }
    
    
-   public EventArrayImpl(String name, Date date, int nGold, int nSilver, Double priceGold, Double priceSilver){
+   public EventArrayImpl(String name, Date date, int nGold, int nSilver, Double priceGold, Double priceSilver, Seat[]gold, Seat[]silver){
+	   this.name = name;
+	   this.date = date;
+	   this.nSilver = nSilver;
+	   this.nGold = nGold;
+	   this.gold = gold;
 	   
-	   EventArrayImpl objetoEventArrayIMPL = new EventArrayImpl(name, date, nGold, nSilver);
-	   EventArrayImpl[] arrayGold = new EventArrayImpl[nGold];
-	   EventArrayImpl[] arraySilver = new EventArrayImpl[nSilver];
+	   
 	   //TODO 
 	   // Debe crear los arrays de butacas gold y silver
 	   
@@ -72,6 +89,7 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver){
 
 	@Override
 	public Date getDate() {
+		// TODO Auto-generated method stub
 		return date;
 	}
 
@@ -114,21 +132,20 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver){
 
 	@Override
 	public int getNumberOfSeats() {
-		
-		int nSeats = nGold+nSilver;
-		return nSeats;
+		// TODO Auto-generated method stub
+		return (nGold+nSilver);
 	}
 
 	@Override
 	public int getNumberOfGoldSeats() {
-		int nGoldSeats = nGold;
-		return nGoldSeats;
+		// TODO Auto-generated method stub
+		return nGold;
 	}
 
 	@Override
 	public int getNumberOfSilverSeats() {
-		int nSilverSeats = nSilver;
-		return nSilverSeats;
+		// TODO Auto-generated method stub
+		return nSilver;
 	}
 
 
@@ -155,22 +172,50 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver){
 
 	@Override
 	public boolean sellSeat(int pos, Person p, Type type) {
-		// TODO Auto-generated method stub
-		return false;
+		int pos1 = pos -1;
+		if(type == Configuration.Type.GOLD) {//Comprueba el tipo
+			if(pos1 <= nGold && pos1 >= 0) {//Comprueba que no se sale
+				if(gold[pos1] == null) {//Que este vacio
+					gold[pos1] = new Seat(null,pos1,Configuration.Type.GOLD,p);
+					return true;
+				}
+			}
+		}
+		if(type == Configuration.Type.SILVER) {//Comprueba el tipo
+			if(pos1 <= nSilver && pos1 >= 0) {//Comprueba que no se sale
+				if(silver[pos1] == null) {//Que este vacio
+					silver[pos1] = new Seat(null,pos1,Configuration.Type.SILVER,p);
+					return true;
+				}
+			}
+		}
+		return false;	
 	}
 
 
 	@Override
 	public List<Integer> getAvailableGoldSeatsList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Integer>listaDisponibles =new ArrayList<Integer>();
+		
+		for(int i = 0; i < nGold; i++) {
+			if(gold[i] == null)
+				listaDisponibles.add(i+1);
+		}
+		
+		return listaDisponibles;
 	}
 
 
 	@Override
 	public List<Integer> getAvailableSilverSeatsList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Integer>listaDisponibles =new ArrayList<Integer>();
+		
+		for(int i = 0; i < nSilver; i++) {
+			if(silver[i] == null)
+				listaDisponibles.add(i+1);
+		}
+		
+		return listaDisponibles;
 	}
 
 

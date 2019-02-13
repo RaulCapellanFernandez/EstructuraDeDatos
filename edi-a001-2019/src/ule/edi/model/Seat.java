@@ -19,8 +19,8 @@ public class Seat {
 		this.holder = holder;
 		this.event = event;
 		this.type =type;
-	}
-	
+	}	
+
 	public int getPosition() {
 		return position;
 	}
