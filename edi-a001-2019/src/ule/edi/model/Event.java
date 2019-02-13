@@ -3,6 +3,7 @@ package ule.edi.model;
 import java.util.Date;
 import java.util.List;
 
+import ule.edi.event.EventArrayImpl;
 import ule.edi.model.Configuration.Type;
 
 public interface Event {

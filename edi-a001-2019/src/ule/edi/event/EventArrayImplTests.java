@@ -14,6 +14,9 @@ public class EventArrayImplTests {
 
 	private DateFormat dformat = null;
 	private EventArrayImpl e;
+	private Person persona;
+	private Person persona1;
+	private Person persona2;
 	
 	private Date parseLocalDate(String spec) throws ParseException {
         return dformat.parse(spec);
@@ -54,4 +57,16 @@ public class EventArrayImplTests {
 		Assert.assertEquals(ep.sellSeat(1, new Person("1010", "AA", 10), Configuration.Type.SILVER),true);
 		Assert.assertEquals(ep.getAvailableSilverSeatsList().toString(), "[2]");					
 	}
+	
+	@Test
+	public void testMetodoEquals() throws Exception{
+		persona = new Person("Pene", "71471266P", 23);
+		persona1 = new Person("Pene", "71471266P", 23);
+		persona2 = new Person("Ramon", "71471265P", 23);
+		
+		Assert.assertEquals(persona.equals(persona1), true);
+		Assert.assertEquals(persona.equals(persona2), false);
+		
+	}
+		
 }

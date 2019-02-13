@@ -47,10 +47,14 @@ public class Person {
 	}
 	
     @Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		// Dos personas son iguales si son iguales sus nifs
-		
+    public boolean equals(Object obj) {
+		if(obj == this){
+			return true;
+		}
+		if(obj instanceof Person){
+			Person other = (Person) obj;
+			return((this.getNif().equals(other.getNif())));
+		}
 		return false;
 	}
 	

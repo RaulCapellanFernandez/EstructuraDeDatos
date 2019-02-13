@@ -44,6 +44,7 @@ public class EventArrayImpl implements Event {
 
 
 public EventArrayImpl(String name, Date date, int nGold, int nSilver){
+	
 	   //TODO 
 	   // utiliza los precios por defecto: DEFAULT_PRICE_GOLD y DEFAULT_PRICE_SILVER definidos en Configuration.java
 	   
@@ -53,6 +54,10 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver){
    
    
    public EventArrayImpl(String name, Date date, int nGold, int nSilver, Double priceGold, Double priceSilver){
+	   
+	   EventArrayImpl objetoEventArrayIMPL = new EventArrayImpl(name, date, nGold, nSilver);
+	   EventArrayImpl[] arrayGold = new EventArrayImpl[nGold];
+	   EventArrayImpl[] arraySilver = new EventArrayImpl[nSilver];
 	   //TODO 
 	   // Debe crear los arrays de butacas gold y silver
 	   
@@ -62,14 +67,12 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver){
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
 	public Date getDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return date;
 	}
 
 	
@@ -111,20 +114,21 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver){
 
 	@Override
 	public int getNumberOfSeats() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int nSeats = nGold+nSilver;
+		return nSeats;
 	}
 
 	@Override
 	public int getNumberOfGoldSeats() {
-		// TODO Auto-generated method stub
-		return 0;
+		int nGoldSeats = nGold;
+		return nGoldSeats;
 	}
 
 	@Override
 	public int getNumberOfSilverSeats() {
-		// TODO Auto-generated method stub
-		return 0;
+		int nSilverSeats = nSilver;
+		return nSilverSeats;
 	}
 
 
