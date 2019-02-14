@@ -38,8 +38,8 @@ public class EventArrayImplTests {
 	
 	@Test
 	public void testMetodoEquals() throws Exception{
-		persona = new Person("Pene", "71471266P", 23);
-		persona1 = new Person("Pene", "71471266P", 23);
+		persona = new Person("Alfonso", "71471266P", 23);
+		persona1 = new Person("Alfonso", "71471266P", 23);
 		persona2 = new Person("Ramon", "71471265P", 23);
 		
 		Assert.assertEquals(persona.equals(persona1), true);
@@ -71,8 +71,8 @@ public class EventArrayImplTests {
 	
 	@Test
 	public void testSellSeat()throws Exception{
-		persona = new Person("Pene", "71471266P", 23);
-		persona1 = new Person("Pene", "71471266P", 23);
+		persona = new Person("Alfonso", "71471266P", 23);
+		persona1 = new Person("Alfonso", "71471266P", 23);
 		persona2 = new Person("Ramon", "71471265P", 23);
 		Assert.assertTrue(e.sellSeat(5, persona, Configuration.Type.GOLD));
 		Assert.assertTrue(e.sellSeat(5, persona1, Configuration.Type.SILVER));
@@ -109,7 +109,7 @@ public class EventArrayImplTests {
 	
 	@Test
 	public void testNumberSoldSeats()throws Exception{
-		persona = new Person("Pene", "71471266P", 23);
+		persona = new Person("Alfonso", "71471266P", 23);
 		persona1 = new Person("Pablo", "71471265P", 23);
 		persona2 = new Person("Raon", "71271265P", 23);
 		
@@ -125,7 +125,7 @@ public class EventArrayImplTests {
 	
 	@Test
 	public void testNumberAvaiableSeats()throws Exception{
-		persona = new Person("Pene", "71471266P", 23);
+		persona = new Person("Alfonso", "71471266P", 23);
 		persona1 = new Person("Pablo", "71471265P", 23);
 		persona2 = new Person("Raon", "71271265P", 23);
 		
@@ -139,7 +139,7 @@ public class EventArrayImplTests {
 	
 	@Test 
 	public void testRefundSeat()throws Exception{
-		persona = new Person("Pene","71471266P",23);
+		persona = new Person("Alfonso","71471266P",23);
 		e.sellSeat(5, persona, Configuration.Type.GOLD);
 		
 		Assert.assertEquals(persona, e.refundSeat(5, Configuration.Type.GOLD));
@@ -148,7 +148,7 @@ public class EventArrayImplTests {
 	
 	@Test 
 	public void testIsGold()throws Exception{
-		persona = new Person("Pene","71471266P",23);
+		persona = new Person("Alfonso","71471266P",23);
 		persona1 = new Person("Pablo", "71471265P", 23);
 		
 		e.sellSeat(5, persona, Configuration.Type.GOLD);
@@ -159,7 +159,7 @@ public class EventArrayImplTests {
 	
 	@Test 
 	public void testIsSilver()throws Exception{
-		persona = new Person("Pene","71471266P",23);
+		persona = new Person("Alfonso","71471266P",23);
 		persona1 = new Person("Pablo", "71471265P", 23);
 		
 		e.sellSeat(5, persona, Configuration.Type.SILVER);
@@ -170,7 +170,7 @@ public class EventArrayImplTests {
 	
 	@Test 
 	public void testGetPosPersonGold()throws Exception{
-		persona = new Person("Pene","71471266P",23);
+		persona = new Person("Alfonso","71471266P",23);
 		persona1 = new Person("Pablo", "71471265P", 23);
 		
 		e.sellSeat(5, persona, Configuration.Type.GOLD);
@@ -181,7 +181,7 @@ public class EventArrayImplTests {
 	
 	@Test 
 	public void testGetPosPersonSilver()throws Exception{
-		persona = new Person("Pene","71471266P",23);
+		persona = new Person("Alfonso","71471266P",23);
 		persona1 = new Person("Pablo", "71471265P", 23);
 		
 		e.sellSeat(5, persona, Configuration.Type.SILVER);
@@ -192,7 +192,7 @@ public class EventArrayImplTests {
 	
 	@Test 
 	public void testGetPrice()throws Exception{
-		persona = new Person("Pene","71471266P",23);
+		persona = new Person("Alfonso","71471266P",23);
 		persona1 = new Person("Pablo", "71471265P", 23);
 		
 		e.sellSeat(5, persona, Configuration.Type.GOLD);
@@ -207,7 +207,7 @@ public class EventArrayImplTests {
 	
 	@Test 
 	public void testGetCollectionEvent()throws Exception{
-		persona = new Person("Pene", "71471266P", 23);
+		persona = new Person("Alfonso", "71471266P", 23);
 		persona1 = new Person("Pablo", "71471265P", 23);
 		persona2 = new Person("Raon", "71271265P", 23);
 		
@@ -223,7 +223,7 @@ public class EventArrayImplTests {
 	
 	@Test 
 	public void testGetNumberOfAttendingChildrens()throws Exception{
-		persona = new Person("Pene", "71471266P", 2);
+		persona = new Person("Alfonso", "71471266P", 2);
 		persona1 = new Person("Pablo", "71471265P", 13);
 		
 		e.sellSeat(5, persona, Configuration.Type.GOLD);
@@ -236,7 +236,7 @@ public class EventArrayImplTests {
 	
 	@Test 
 	public void testGetNumberOfAttendingAdults()throws Exception{
-		persona = new Person("Pene", "71471266P", 50);
+		persona = new Person("Alfonso", "71471266P", 50);
 		persona1 = new Person("Pablo", "71471265P", 32);
 		
 		e.sellSeat(5, persona, Configuration.Type.GOLD);
@@ -249,7 +249,7 @@ public class EventArrayImplTests {
 	
 	@Test 
 	public void testGetNumberOfAttendingElders() throws Exception{
-		persona = new Person("Pene", "71471266P", 132);
+		persona = new Person("Alfonso", "71471266P", 132);
 		persona1 = new Person("Pablo", "71471265P", 67);
 		
 		e.sellSeat(5, persona, Configuration.Type.GOLD);
@@ -262,18 +262,18 @@ public class EventArrayImplTests {
 	
 	@Test
 	public void testGetSeat() throws Exception{
-		persona = new Person("Pene", "71471266P", 132);
+		persona = new Person("Alfonso", "71471266P", 132);
 		
 		e.sellSeat(5, persona, Configuration.Type.GOLD);
 		e.sellSeat(5, persona, Configuration.Type.SILVER);
+	
 		
-		Seat seat = new Seat(null,5,Configuration.Type.GOLD, persona);
-		Seat seat1 = new Seat(null,5,Configuration.Type.SILVER, persona);
-		
-		System.out.println(e.getSeat(6, Configuration.Type.GOLD).toString());
-		
-		Assert.assertEquals(null, e.getSeat(7, Configuration.Type.GOLD));
-		Assert.assertEquals(seat, e.getSeat(5, Configuration.Type.GOLD).toString());
-		Assert.assertEquals(seat, e.getSeat(5, Configuration.Type.SILVER));
+		Assert.assertEquals(5, e.getSeat(5, Configuration.Type.GOLD).getPosition());
+		Assert.assertEquals(Configuration.Type.GOLD, e.getSeat(5, Configuration.Type.GOLD).getType());
+		Assert.assertEquals(persona, e.getSeat(5, Configuration.Type.GOLD).getHolder());
+		Assert.assertEquals(5, e.getSeat(5, Configuration.Type.SILVER).getPosition());
+		Assert.assertEquals(Configuration.Type.SILVER, e.getSeat(5, Configuration.Type.SILVER).getType());
+		Assert.assertEquals(persona, e.getSeat(5, Configuration.Type.SILVER).getHolder());
+		Assert.assertEquals(null, e.getSeat(8, Configuration.Type.GOLD));
 	}
 }

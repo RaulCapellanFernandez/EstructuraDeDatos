@@ -203,11 +203,14 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver, Seat[]gold
 	@Override
 	public Seat getSeat(int pos, Type type) {
 		pos = pos-1;
-		if(gold[pos] != null) {
-			return gold[pos];
+		if(Configuration.Type.GOLD == type) {
+			if(gold[pos] != null)
+				return gold[pos];
 		}
-		if(silver[pos] != null) {
-			return silver[pos];
+		
+		if(Configuration.Type.SILVER == type) {
+			if(silver[pos] != null)
+				return silver[pos];
 		}
 		return null;
 	}
