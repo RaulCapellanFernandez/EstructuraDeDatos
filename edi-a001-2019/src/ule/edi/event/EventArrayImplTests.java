@@ -37,31 +37,6 @@ public class EventArrayImplTests {
 	}
 	
 	@Test
-	public void testSomething() throws Exception {
-		
-	    Assert.assertTrue(e.getNumberOfAvailableSeats()==110);
-	    Assert.assertEquals(e.getNumberOfSilverSeats(), 110);
-	    Assert.assertEquals(e.getNumberOfAttendingAdults(), 0);
-	}
-	
-	@Test
-	public void testSellSeat1Adult() throws Exception{
-		
-			
-	    Assert.assertEquals(e.getNumberOfAttendingAdults(), 0);
-		e.sellSeat(1, new Person("10203040A","Alice", 34),Type.GOLD);
-	    Assert.assertEquals(e.getNumberOfAttendingAdults(), 1);
-	  
-	}
-	/*
-	@Test
-	public void testgetAvailableSilverSeatsListBasic() throws Exception{
-		 Event  ep = new EventArrayImpl("The Fabulous Five", parseLocalDate("24/02/2018 17:00:00"), 2, 2);
-		Assert.assertEquals(ep.sellSeat(1, new Person("1010", "AA", 10), Configuration.Type.SILVER),true);
-		Assert.assertEquals(ep.getAvailableSilverSeatsList().toString(), "[2]");					
-	}*/
-	
-	@Test
 	public void testMetodoEquals() throws Exception{
 		persona = new Person("Pene", "71471266P", 23);
 		persona1 = new Person("Pene", "71471266P", 23);
@@ -130,5 +105,119 @@ public class EventArrayImplTests {
 		e.sellSeat(5, persona, Configuration.Type.SILVER);
 		
 		Assert.assertEquals(listaDisponibles, e.getAvailableSilverSeatsList());
+	}
+	
+	@Test
+	public void testNumberSoldSeats()throws Exception{
+		persona = new Person("Pene", "71471266P", 23);
+		persona1 = new Person("Pablo", "71471265P", 23);
+		persona2 = new Person("Raon", "71271265P", 23);
+		
+		e.sellSeat(5, persona, Configuration.Type.GOLD);
+		e.sellSeat(7, persona1, Configuration.Type.GOLD);
+		e.sellSeat(5, persona, Configuration.Type.SILVER);
+		e.sellSeat(8, persona1, Configuration.Type.SILVER);
+		
+		Assert.assertEquals(2,e.getNumberOfSoldGoldSeats());
+		Assert.assertEquals(2,e.getNumberOfSoldSilverSeats());
+		Assert.assertEquals(4,e.getNumberOfSoldSeats());
+	}
+	
+	@Test
+	public void testNumberAvaiableSeats()throws Exception{
+		persona = new Person("Pene", "71471266P", 23);
+		persona1 = new Person("Pablo", "71471265P", 23);
+		persona2 = new Person("Raon", "71271265P", 23);
+		
+		e.sellSeat(5, persona, Configuration.Type.GOLD);
+		e.sellSeat(7, persona1, Configuration.Type.GOLD);
+		e.sellSeat(5, persona, Configuration.Type.SILVER);
+		e.sellSeat(8, persona1, Configuration.Type.SILVER);
+		
+		Assert.assertEquals(106,e.getNumberOfAvailableSeats());
+	}
+	
+	@Test 
+	public void testGetSeat()throws Exception{
+		persona = new Person("Pene","71471266P",23);
+		e.sellSeat(5, persona, Configuration.Type.GOLD);
+		
+		Assert.assertEquals(persona, e.refundSeat(5, Configuration.Type.GOLD));
+		Assert.assertEquals(null, e.refundSeat(8, Configuration.Type.GOLD));
+	}
+	
+	@Test 
+	public void testIsGold()throws Exception{
+		persona = new Person("Pene","71471266P",23);
+		persona1 = new Person("Pablo", "71471265P", 23);
+		
+		e.sellSeat(5, persona, Configuration.Type.GOLD);
+		
+		Assert.assertEquals(true, e.isGold(persona));
+		Assert.assertEquals(false, e.isGold(persona1));
+	}
+	
+	@Test 
+	public void testIsSilver()throws Exception{
+		persona = new Person("Pene","71471266P",23);
+		persona1 = new Person("Pablo", "71471265P", 23);
+		
+		e.sellSeat(5, persona, Configuration.Type.SILVER);
+		
+		Assert.assertEquals(true, e.isSilver(persona));
+		Assert.assertEquals(false, e.isSilver(persona1));
+	}
+	
+	@Test 
+	public void testGetPosPersonGold()throws Exception{
+		persona = new Person("Pene","71471266P",23);
+		persona1 = new Person("Pablo", "71471265P", 23);
+		
+		e.sellSeat(5, persona, Configuration.Type.GOLD);
+		
+		Assert.assertEquals(5, e.getPosPersonGold(persona));
+		Assert.assertEquals(-1, e.getPosPersonGold(persona1));
+	}
+	
+	@Test 
+	public void testGetPosPersonSilver()throws Exception{
+		persona = new Person("Pene","71471266P",23);
+		persona1 = new Person("Pablo", "71471265P", 23);
+		
+		e.sellSeat(5, persona, Configuration.Type.SILVER);
+		
+		Assert.assertEquals(5, e.getPosPersonSilver(persona));
+		Assert.assertEquals(-1, e.getPosPersonSilver(persona1));
+	}
+	
+	@Test 
+	public void testGetPrice()throws Exception{
+		persona = new Person("Pene","71471266P",23);
+		persona1 = new Person("Pablo", "71471265P", 23);
+		
+		e.sellSeat(5, persona, Configuration.Type.GOLD);
+		e.sellSeat(8, persona1, Configuration.Type.SILVER);
+		
+		Seat seat = new Seat(null, 5, Configuration.Type.GOLD, persona);
+		Seat seat1 = new Seat(null, 8, Configuration.Type.SILVER, persona1);
+		
+		Assert.assertEquals(Configuration.DEFAULT_PRICE_GOLD, e.getPrice(seat));
+		Assert.assertEquals(Configuration.DEFAULT_PRICE_SILVER, e.getPrice(seat1));
+	}
+	
+	@Test 
+	public void testGetCollectionEvent()throws Exception{
+		persona = new Person("Pene", "71471266P", 23);
+		persona1 = new Person("Pablo", "71471265P", 23);
+		persona2 = new Person("Raon", "71271265P", 23);
+		
+		e.sellSeat(5, persona, Configuration.Type.GOLD);
+		e.sellSeat(7, persona1, Configuration.Type.GOLD);
+		e.sellSeat(5, persona, Configuration.Type.SILVER);
+		e.sellSeat(8, persona1, Configuration.Type.SILVER);
+		
+		Double price  = 300.00;
+		
+		Assert.assertEquals(price, e.getCollectionEvent());
 	}
 }
