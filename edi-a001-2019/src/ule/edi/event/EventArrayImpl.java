@@ -96,20 +96,56 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver, Seat[]gold
 	
 	@Override
 	public int getNumberOfAttendingChildren() {
-		// TODO Auto-generated method stub
-		return 0;
+		int child = 0;
+		for(int i = 0; i < nGold; i++) {
+			if(gold[i] != null) {
+				if(gold[i].getHolder().getAge() < Configuration.CHILDREN_EXMAX_AGE)
+					child++;
+			}
+		}
+		for(int i = 0; i < nSilver; i++) {
+			if(silver[i] != null) {
+				if(silver[i].getHolder().getAge() < Configuration.CHILDREN_EXMAX_AGE)
+					child++;
+			}
+		}
+		return child;
 	}
 
 	@Override
 	public int getNumberOfAttendingAdults() {
-		// TODO Auto-generated method stub
-		return 0;
+		int adult = 0;
+		for(int i = 0; i < nGold; i++) {
+			if(gold[i] != null) {
+				if(gold[i].getHolder().getAge() >= Configuration.CHILDREN_EXMAX_AGE && gold[i].getHolder().getAge() < Configuration.ELDERLY_PERSON_INMIN_AGE)
+					adult++;
+			}
+		}
+		for(int i = 0; i < nSilver; i++) {
+			if(silver[i] != null) {
+				if(silver[i].getHolder().getAge() >= Configuration.CHILDREN_EXMAX_AGE && silver[i].getHolder().getAge() < Configuration.ELDERLY_PERSON_INMIN_AGE)
+					adult++;
+			}
+		}
+		return adult;
 	}
 
 	@Override
 	public int getNumberOfAttendingElderlyPeople() {
-		// TODO Auto-generated method stub
-		return 0;
+		int elder = 0;
+		for(int i = 0; i < nGold; i++) {
+			if(gold[i] != null) {
+				if(gold[i].getHolder().getAge() >= Configuration.ELDERLY_PERSON_INMIN_AGE)
+					elder++;
+			}
+		}
+		for(int i = 0; i < nSilver; i++) {
+			if(silver[i] != null) {
+				if(silver[i].getHolder().getAge() >= Configuration.ELDERLY_PERSON_INMIN_AGE)
+					elder++;
+			}
+		}
+		return elder;
 	}
 
 	@Override
@@ -167,17 +203,11 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver, Seat[]gold
 	@Override
 	public Seat getSeat(int pos, Type type) {
 		pos = pos-1;
-		if(type == Configuration.Type.GOLD) {
-			if(pos >= 0 && pos < nGold) {
-				if(gold[pos] != null)
-					return gold[pos];
-			}
+		if(gold[pos] != null) {
+			return gold[pos];
 		}
-		if(type == Configuration.Type.SILVER) {
-			if(pos >= 0 && pos < nSilver) {
-				if(silver[pos] != null)
-					return silver[pos];
-			}
+		if(silver[pos] != null) {
+			return silver[pos];
 		}
 		return null;
 	}
