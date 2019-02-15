@@ -66,20 +66,22 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver, Seat[]gold
 	   
    }
    
-   /*
+   
    public EventArrayImpl(String name, Date date, int nGold, int nSilver, Double priceGold, Double priceSilver, Seat[]gold, Seat[]silver){
 	   this.name = name;
 	   this.date = date;
 	   this.nSilver = nSilver;
-	   this.nGold = nGold;
-	   this.gold = gold;
+	   this.gold = new Seat[nGold];
+	   this.silver = new Seat[nSilver];
+	   this.priceGold = priceGold;
+	   this.priceSilver = priceSilver;
 	   
 	   
 	   //TODO 
 	   // Debe crear los arrays de butacas gold y silver
 	   
 	   
-   }NO SE POR QUE DOS CONSTRUCTORES*/
+   }
    
 
 	@Override
@@ -286,10 +288,10 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver, Seat[]gold
 	public Double getPrice(Seat seat) {
 		Double precio = 0.00;
 		if(seat.getType() == Configuration.Type.GOLD)
-			precio = Configuration.DEFAULT_PRICE_GOLD;
+			precio = priceGold;
 		
 		if(seat.getType() == Configuration.Type.SILVER)
-			precio = Configuration.DEFAULT_PRICE_SILVER;
+			precio = priceSilver;
 		
 		return precio;
 	}

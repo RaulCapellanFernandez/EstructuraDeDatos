@@ -16,6 +16,7 @@ public class EventArrayImplTests {
 
 	private DateFormat dformat = null;
 	private EventArrayImpl e;
+	private EventArrayImpl ex;
 	private Person persona;
 	private Person persona1;
 	private Person persona2;
@@ -195,6 +196,9 @@ public class EventArrayImplTests {
 		persona = new Person("Alfonso","71471266P",23);
 		persona1 = new Person("Pablo", "71471265P", 23);
 		
+		e.setPriceGold(Configuration.DEFAULT_PRICE_GOLD);
+		e.setPriceSilver(Configuration.DEFAULT_PRICE_SILVER);
+		
 		e.sellSeat(5, persona, Configuration.Type.GOLD);
 		e.sellSeat(8, persona1, Configuration.Type.SILVER);
 		
@@ -276,4 +280,27 @@ public class EventArrayImplTests {
 		Assert.assertEquals(persona, e.getSeat(5, Configuration.Type.SILVER).getHolder());
 		Assert.assertEquals(null, e.getSeat(8, Configuration.Type.GOLD));
 	}
+	
+	@Test
+	public void testGetPrices() throws Exception{
+		e.setPriceGold(Configuration.DEFAULT_PRICE_GOLD);
+		e.setPriceSilver(Configuration.DEFAULT_PRICE_SILVER);
+		
+		Assert.assertEquals(Configuration.DEFAULT_PRICE_GOLD, e.getPriceGold());
+		Assert.assertEquals(Configuration.DEFAULT_PRICE_SILVER, e.getPriceSilver());
+		
+	}
+	
+	@Test
+	public void testSetSeats() throws Exception{
+		ex = new EventArrayImpl("Jose", parseLocalDate("24/02/2018 17:00:00"), 10, 100,200.00,100.00, goldArray, silverAray);
+		
+		ex.setSilvereats(200);
+		ex.setGoldSeats(25);
+		
+		Assert.assertEquals(200, ex.getNumberOfSilverSeats());
+		Assert.assertEquals(25, ex.getNumberOfGoldSeats());
+		
+	}
+
 }
