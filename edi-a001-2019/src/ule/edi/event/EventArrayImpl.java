@@ -231,6 +231,15 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver, Seat[]gold
 				}
 			}
 		}
+		if(Configuration.Type.SILVER == type) {
+			if(pos >= 0 && pos < nSilver) {
+				if(silver[pos] != null) {
+					persona = silver[pos].getHolder();
+					silver[pos]= null;
+					return persona;
+				}
+			}
+		}
 		return null;
 	}
 

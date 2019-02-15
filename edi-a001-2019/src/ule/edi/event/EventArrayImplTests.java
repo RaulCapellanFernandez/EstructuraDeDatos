@@ -20,6 +20,9 @@ public class EventArrayImplTests {
 	private Person persona;
 	private Person persona1;
 	private Person persona2;
+	private Person persona3;
+	private Person persona4;
+	private Person persona5;
 	private Seat[]goldArray;
 	private Seat[]silverAray;
 	
@@ -77,6 +80,11 @@ public class EventArrayImplTests {
 		persona2 = new Person("Ramon", "71471265P", 23);
 		Assert.assertTrue(e.sellSeat(5, persona, Configuration.Type.GOLD));
 		Assert.assertTrue(e.sellSeat(5, persona1, Configuration.Type.SILVER));
+		Assert.assertFalse(e.sellSeat(51, persona1, Configuration.Type.GOLD));
+		Assert.assertFalse(e.sellSeat(123, persona1, Configuration.Type.SILVER));
+		Assert.assertFalse(e.sellSeat(-1, persona1, Configuration.Type.GOLD));
+		Assert.assertFalse(e.sellSeat(-1, persona1, Configuration.Type.SILVER));
+		Assert.assertFalse(e.sellSeat(5, persona1, Configuration.Type.SILVER));
 		Assert.assertFalse(e.sellSeat(5, persona2, Configuration.Type.GOLD));
 		
 	}
@@ -141,10 +149,19 @@ public class EventArrayImplTests {
 	@Test 
 	public void testRefundSeat()throws Exception{
 		persona = new Person("Alfonso","71471266P",23);
+		persona1 = new Person("Pablo", "71471265P", 23);
+		
+		e.sellSeat(8, persona1, Configuration.Type.SILVER);
 		e.sellSeat(5, persona, Configuration.Type.GOLD);
 		
+		Assert.assertEquals(persona1, e.refundSeat(8, Configuration.Type.SILVER));
 		Assert.assertEquals(persona, e.refundSeat(5, Configuration.Type.GOLD));
+		Assert.assertEquals(null, e.refundSeat(834, Configuration.Type.GOLD));
+		Assert.assertEquals(null, e.refundSeat(512, Configuration.Type.SILVER));
+		Assert.assertEquals(null, e.refundSeat(-8, Configuration.Type.GOLD));
+		Assert.assertEquals(null, e.refundSeat(-5, Configuration.Type.SILVER));
 		Assert.assertEquals(null, e.refundSeat(8, Configuration.Type.GOLD));
+		Assert.assertEquals(null, e.refundSeat(5, Configuration.Type.SILVER));
 	}
 	
 	@Test 
@@ -229,9 +246,17 @@ public class EventArrayImplTests {
 	public void testGetNumberOfAttendingChildrens()throws Exception{
 		persona = new Person("Alfonso", "71471266P", 2);
 		persona1 = new Person("Pablo", "71471265P", 13);
+		persona2 = new Person("Alfonso", "71471266P", 50);
+		persona3 = new Person("Pablo", "71471265P", 32);
+		persona4 = new Person("Alfonso", "71471266P", 132);
+		persona5 = new Person("Pablo", "71471265P", 67);
 		
 		e.sellSeat(5, persona, Configuration.Type.GOLD);
-		e.sellSeat(5, persona1, Configuration.Type.SILVER);
+		e.sellSeat(52, persona1, Configuration.Type.SILVER);
+		e.sellSeat(3, persona2, Configuration.Type.GOLD);
+		e.sellSeat(54, persona3, Configuration.Type.SILVER);
+		e.sellSeat(4, persona4, Configuration.Type.GOLD);
+		e.sellSeat(1, persona5, Configuration.Type.GOLD);
 		
 		int number = 2;
 		
@@ -240,11 +265,19 @@ public class EventArrayImplTests {
 	
 	@Test 
 	public void testGetNumberOfAttendingAdults()throws Exception{
-		persona = new Person("Alfonso", "71471266P", 50);
-		persona1 = new Person("Pablo", "71471265P", 32);
+		persona = new Person("Alfonso", "71471266P", 2);
+		persona1 = new Person("Pablo", "71471265P", 13);
+		persona2 = new Person("Alfonso", "71471266P", 50);
+		persona3 = new Person("Pablo", "71471265P", 32);
+		persona4 = new Person("Alfonso", "71471266P", 132);
+		persona5 = new Person("Pablo", "71471265P", 67);
 		
 		e.sellSeat(5, persona, Configuration.Type.GOLD);
-		e.sellSeat(5, persona1, Configuration.Type.SILVER);
+		e.sellSeat(52, persona1, Configuration.Type.SILVER);
+		e.sellSeat(3, persona2, Configuration.Type.GOLD);
+		e.sellSeat(54, persona3, Configuration.Type.SILVER);
+		e.sellSeat(4, persona4, Configuration.Type.SILVER);
+		e.sellSeat(1, persona5, Configuration.Type.GOLD);
 		
 		int number = 2;
 		
@@ -253,11 +286,19 @@ public class EventArrayImplTests {
 	
 	@Test 
 	public void testGetNumberOfAttendingElders() throws Exception{
-		persona = new Person("Alfonso", "71471266P", 132);
-		persona1 = new Person("Pablo", "71471265P", 67);
+		persona = new Person("Alfonso", "71471266P", 2);
+		persona1 = new Person("Pablo", "71471265P", 13);
+		persona2 = new Person("Alfonso", "71471266P", 50);
+		persona3 = new Person("Pablo", "71471265P", 32);
+		persona4 = new Person("Alfonso", "71471266P", 132);
+		persona5 = new Person("Pablo", "71471265P", 67);
 		
 		e.sellSeat(5, persona, Configuration.Type.GOLD);
-		e.sellSeat(5, persona1, Configuration.Type.SILVER);
+		e.sellSeat(52, persona1, Configuration.Type.SILVER);
+		e.sellSeat(3, persona2, Configuration.Type.GOLD);
+		e.sellSeat(54, persona3, Configuration.Type.SILVER);
+		e.sellSeat(4, persona4, Configuration.Type.SILVER);
+		e.sellSeat(1, persona5, Configuration.Type.GOLD);
 		
 		int number = 2;
 		
@@ -279,6 +320,7 @@ public class EventArrayImplTests {
 		Assert.assertEquals(Configuration.Type.SILVER, e.getSeat(5, Configuration.Type.SILVER).getType());
 		Assert.assertEquals(persona, e.getSeat(5, Configuration.Type.SILVER).getHolder());
 		Assert.assertEquals(null, e.getSeat(8, Configuration.Type.GOLD));
+		Assert.assertEquals(null, e.getSeat(8, Configuration.Type.SILVER));
 	}
 	
 	@Test
