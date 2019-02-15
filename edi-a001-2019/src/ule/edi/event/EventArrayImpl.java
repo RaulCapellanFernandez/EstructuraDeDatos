@@ -258,7 +258,7 @@ public EventArrayImpl(String name, Date date, int nGold, int nSilver, Seat[]gold
 		if(type == Configuration.Type.SILVER) {//Comprueba el tipo
 			if(pos1 <= nSilver && pos1 >= 0) {//Comprueba que no se sale
 				if(silver[pos1] == null) {//Que este vacio
-					silver[pos1] = new Seat(null,pos,Configuration.Type.SILVER,p);
+					silver[pos1] = new Seat(this,pos,Configuration.Type.SILVER,p);
 					return true;
 				}
 			}

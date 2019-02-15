@@ -78,6 +78,7 @@ public class EventArrayImplTests {
 		persona = new Person("Alfonso", "71471266P", 23);
 		persona1 = new Person("Alfonso", "71471266P", 23);
 		persona2 = new Person("Ramon", "71471265P", 23);
+		
 		Assert.assertTrue(e.sellSeat(5, persona, Configuration.Type.GOLD));
 		Assert.assertTrue(e.sellSeat(5, persona1, Configuration.Type.SILVER));
 		Assert.assertFalse(e.sellSeat(51, persona1, Configuration.Type.GOLD));
