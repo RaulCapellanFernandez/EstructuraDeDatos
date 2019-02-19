@@ -46,8 +46,8 @@ public class EventArrayImplTests {
 		persona1 = new Person("Alfonso", "71471266P", 23);
 		persona2 = new Person("Ramon", "71471265P", 23);
 		
-		Assert.assertEquals(persona.equals(persona1), true);
-		Assert.assertEquals(persona.equals(persona2), false);
+		Assert.assertTrue(persona.equals(persona1));
+		Assert.assertFalse(persona.equals(persona2));
 		
 	}
 
