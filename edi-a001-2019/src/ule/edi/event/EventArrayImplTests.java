@@ -60,7 +60,7 @@ public class EventArrayImplTests {
 	@Test
 	public void testGetDate()throws Exception{
 		Assert.assertEquals(parseLocalDate("24/02/2018 17:00:00"), e.getDate());
-		Assert.assertEquals("Raul".equals(e.getName()), false);
+		Assert.assertEquals("Jose",(e.getName()));
 	}
 	
 	@Test
