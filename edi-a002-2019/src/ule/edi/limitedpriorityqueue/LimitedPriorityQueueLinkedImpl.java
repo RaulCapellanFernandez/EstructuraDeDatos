@@ -41,7 +41,6 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
   
     @Override
     public int getCapacity() {
-
         return capacity;
     }
     
@@ -60,9 +59,9 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 
     @Override
     public boolean isFull() {
-    	// TODO Auto-generated method stub
+    	if(getSize() < getCapacity()) 
+    		return true;
     	return false;
-    	
     }
 
 	@Override
@@ -71,9 +70,10 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 		QueueNode<T> anterior;
 		QueueNode<T> introducir = new QueueNode<T>(p, element);
 		
-		//Cuando la cola esta vacia
-		if(getSize() < capacity) {
-			if(first == null) {
+		//Cuando la cola esta llena
+		if(isFull()) {
+			//Cuando la lista esta vacia
+			if(isEmpty()) {
 				first = introducir;
 				introducir.next  = null;
 				return element;
@@ -100,20 +100,21 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 				}
 				actual = actual.next;
 			}
-		}else {
-			//Cuando la lista esta llena desencola el primer elemento
-			System.out.println("La lista esta llena quito el de mayor prioridad");
-			first = actual.next;
-			enqueue(p, element);
 		}
+		//Cuando la lista esta llena desencola el primer elemento
+		System.out.println("La lista esta llena quito el de mayor prioridad");
+		first = actual.next;
+		enqueue(p, element);
 		
 		return null;
 	}
 
 	@Override
 	public T first() throws EmptyCollectionException {
-		// TODO Auto-generated method stub
-		return null;
+		if(first == null)
+			throw new EmptyCollectionException("La cola esta vacia");
+		else 
+			return first.content;
 	}
 
 	@Override
@@ -124,7 +125,8 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
+		if(first == null)
+			return true;
 		return false;
 	}
 
