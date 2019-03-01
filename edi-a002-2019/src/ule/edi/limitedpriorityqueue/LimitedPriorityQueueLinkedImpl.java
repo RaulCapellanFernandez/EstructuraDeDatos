@@ -100,6 +100,11 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 				}
 				actual = actual.next;
 			}
+		}else {
+			//Cuando la lista esta llena desencola el primer elemento
+			System.out.println("La lista esta llena quito el de mayor prioridad");
+			first = actual.next;
+			enqueue(p, element);
 		}
 		
 		return null;

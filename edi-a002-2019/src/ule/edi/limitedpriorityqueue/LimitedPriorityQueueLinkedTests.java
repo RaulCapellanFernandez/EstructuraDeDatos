@@ -36,6 +36,7 @@ public class LimitedPriorityQueueLinkedTests {
 		Assert.assertEquals("8",pq3.enqueue(2, "8"));
 		Assert.assertEquals("9",pq3.enqueue(2, "9"));
 		Assert.assertEquals("10",pq3.enqueue(2,"10"));
+		System.out.println(pq3.toString());
 		Assert.assertEquals(null,pq3.enqueue(2, "11"));
 		
 		
