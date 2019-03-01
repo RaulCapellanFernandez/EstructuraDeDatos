@@ -25,6 +25,57 @@ public class LimitedPriorityQueueLinkedTests {
 	}
 	
 	@Test
+	public void testGetCapacity() throws Exception {
+		Assert.assertEquals(10, pq3.getCapacity());
+	}
+	
+	@Test
+	public void testGetSize() throws Exception {
+		Assert.assertEquals(0, pq3.getSize());
+		pq3.enqueue(4, "1");
+		Assert.assertEquals(1, pq3.getSize());
+	}
+	
+	@Test
+	public void testIsFull() throws Exception {
+		Assert.assertEquals(false, pq3.isFull());
+		pq3.enqueue(4, "1");
+		pq3.enqueue(4, "2");
+		pq3.enqueue(4, "3");
+		pq3.enqueue(4, "4");
+		pq3.enqueue(4, "5");
+		pq3.enqueue(4, "6");
+		pq3.enqueue(4, "7");
+		pq3.enqueue(4, "8");
+		pq3.enqueue(4, "9");
+		pq3.enqueue(4, "10");
+		Assert.assertEquals(true, pq3.isFull());
+	}
+	
+	@Test
+	public void testDesqueue() throws EmptyCollectionException {
+		pq3.enqueue(4, "1");
+		
+		Assert.assertEquals("1", pq3.dequeue());
+		
+		pq3.enqueue(4, "1");
+		pq3.enqueue(3, "2");
+		pq3.enqueue(2, "3");
+		pq3.enqueue(5, "4");
+		pq3.enqueue(2, "5");
+		
+		Assert.assertEquals("4", pq3.dequeue());
+	}
+	
+	@Test
+	public void testIsEmpty() throws Exception {
+		Assert.assertEquals(true, pq3.isEmpty());
+		pq3.enqueue(5, "4");
+		Assert.assertEquals(false, pq3.isEmpty());
+	}
+	
+	
+	@Test
 	public void testEnqueue() throws Exception {
 		Assert.assertEquals(null,pq3.enqueue(4, "1"));
 		Assert.assertEquals(null,pq3.enqueue(3, "2"));
@@ -36,15 +87,8 @@ public class LimitedPriorityQueueLinkedTests {
 		Assert.assertEquals(null,pq3.enqueue(2, "8"));
 		Assert.assertEquals(null,pq3.enqueue(2, "9"));
 		Assert.assertEquals(null,pq3.enqueue(2,"10"));
-		System.out.println(pq3.toString());
+		
 		Assert.assertEquals("6",pq3.enqueue(2, "11"));
-		
-		Assert.assertEquals("7",pq3.dequeue());
-		
-		
-		System.out.println(pq3.toString());
-		
-		
 	}
 	@Test
 	public void testIsFirst() throws EmptyCollectionException {
