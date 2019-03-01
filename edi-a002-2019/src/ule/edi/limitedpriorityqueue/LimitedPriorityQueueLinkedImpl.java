@@ -3,6 +3,8 @@ package ule.edi.limitedpriorityqueue;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+import javax.swing.text.AbstractDocument.Content;
+
 
 public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T> {
 	    private int capacity;
@@ -13,13 +15,14 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 
 	private static class QueueNode<E> {
 	
-		public QueueNode(Double priority, E content) {
+		public QueueNode(int priority, E content) {
 			this.priority = priority;
 			this.content = content;
 			this.next = null;
 		}
 		
-		public Double priority;
+		
+		public int priority;
 		
 		public E content;
 		
@@ -29,7 +32,7 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 
 	
 	public LimitedPriorityQueueLinkedImpl(int capacity) {
-		
+		this.capacity = capacity;
    
 	}
 	
@@ -41,10 +44,18 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 
         return capacity;
     }
-
+    
     @Override
     public int getSize() {
-        return count ;
+    	int esp = 0;
+    	QueueNode<T> actual = first;
+    
+	   while(actual != null) { 
+    		   esp++;
+    	   actual = actual.next;
+	   }
+    	
+    	return esp;
     }
 
     @Override
@@ -56,7 +67,25 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 
 	@Override
 	public T enqueue(int p, T element) {
-	   // TODO Auto-generated method stub
+		QueueNode<T> actual = first;
+		QueueNode<T> introducir = new QueueNode<T>(p, element);
+		
+		if(actual == null) {
+			first = introducir;
+			return element;
+		}
+		if(p < actual.priority) {
+			introducir.next = actual;
+			first = introducir;
+			return element;
+		}
+		if(p > actual.priority) {
+			introducir = actual.next;
+			actual = introducir;
+			return element;
+		}
+		
+		
 		return null;
 	}
 
@@ -80,10 +109,15 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 
 	@Override
 	public String toString() {
+		QueueNode<T> actual = first;
 		if (! this.isEmpty()) {
 			StringBuffer rx = new StringBuffer();
 			rx.append("[");
-		      // TODO : MOSTRAR LOS ELEMENTOS DE LA COLA DE PRIORIDAD CON EL MISMO FORMATO QUE LA OTRA IMPLEMENTACIÓN
+		      while(actual != null) {
+		    	  rx.append(actual.content);
+		    	  rx.append(" , ");
+		    	  actual = actual.next;
+		      }
 		
 			rx.append("]");
 			return rx.toString();

@@ -19,10 +19,21 @@ public class LimitedPriorityQueueLinkedTests {
 	
 	@Before
 	public void testBefore() throws Exception{
-	    pq3 = new LimitedPriorityQueueLinkedImpl<String>(3); // limitado a 3 elementos
+	    pq3 = new LimitedPriorityQueueLinkedImpl<String>(10); // limitado a 3 elementos
 	    pq5 = new LimitedPriorityQueueLinkedImpl<String>(5); // limitado a 5 elementos
 
 	}
+	
+	@Test
+	public void testEnqueue() throws Exception {
+		Assert.assertEquals("P",pq3.enqueue(4, "P"));
+		Assert.assertEquals("Q",pq3.enqueue(3, "Q"));
+		Assert.assertEquals("S",pq3.enqueue(2, "S"));
+		System.out.println(pq3.toString());
+		Assert.assertEquals("QE",pq3.enqueue(5, "QE"));
+		
+	}
+	
 	
 	@Test
 	public void testSomething() throws Exception {
