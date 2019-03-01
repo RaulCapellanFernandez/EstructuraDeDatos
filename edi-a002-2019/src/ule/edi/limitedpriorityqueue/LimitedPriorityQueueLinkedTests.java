@@ -26,11 +26,21 @@ public class LimitedPriorityQueueLinkedTests {
 	
 	@Test
 	public void testEnqueue() throws Exception {
-		Assert.assertEquals("P",pq3.enqueue(4, "P"));
-		Assert.assertEquals("Q",pq3.enqueue(3, "Q"));
-		Assert.assertEquals("S",pq3.enqueue(2, "S"));
+		Assert.assertEquals("1",pq3.enqueue(4, "1"));
+		Assert.assertEquals("2",pq3.enqueue(3, "2"));
+		Assert.assertEquals("3",pq3.enqueue(2, "3"));
+		Assert.assertEquals("4",pq3.enqueue(1, "4"));
+		Assert.assertEquals("5",pq3.enqueue(2, "5"));
+		Assert.assertEquals("6",pq3.enqueue(1, "6"));
+		Assert.assertEquals("7",pq3.enqueue(5, "7"));
+		Assert.assertEquals("8",pq3.enqueue(2, "8"));
+		Assert.assertEquals("9",pq3.enqueue(2, "9"));
+		Assert.assertEquals("10",pq3.enqueue(2,"10"));
+		Assert.assertEquals(null,pq3.enqueue(2, "11"));
+		
+		
 		System.out.println(pq3.toString());
-		Assert.assertEquals("QE",pq3.enqueue(5, "QE"));
+		
 		
 	}
 	

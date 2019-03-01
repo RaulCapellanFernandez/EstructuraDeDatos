@@ -68,23 +68,39 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 	@Override
 	public T enqueue(int p, T element) {
 		QueueNode<T> actual = first;
+		QueueNode<T> anterior;
 		QueueNode<T> introducir = new QueueNode<T>(p, element);
 		
-		if(actual == null) {
-			first = introducir;
-			return element;
+		//Cuando la cola esta vacia
+		if(getSize() < capacity) {
+			if(first == null) {
+				first = introducir;
+				introducir.next  = null;
+				return element;
+			}
+			//Se introduce en la primera posicion
+			if(p < actual.priority) {
+				introducir.next = first;
+				first = introducir;
+				return element;
+			}
+			
+			//Bucle para el resto de casos
+			while(actual != null) {
+				if(p >= actual.priority && actual.next == null) {
+					actual.next = introducir;
+					introducir = null;
+					return element;
+				}
+				//Introducir un elemento en el medio de una cola 
+				if(p >= actual.priority && p < actual.next.priority) {
+					introducir.next = actual.next;
+					actual.next = introducir;
+					return element;
+				}
+				actual = actual.next;
+			}
 		}
-		if(p < actual.priority) {
-			introducir.next = actual;
-			first = introducir;
-			return element;
-		}
-		if(p > actual.priority) {
-			introducir = actual.next;
-			actual = introducir;
-			return element;
-		}
-		
 		
 		return null;
 	}
