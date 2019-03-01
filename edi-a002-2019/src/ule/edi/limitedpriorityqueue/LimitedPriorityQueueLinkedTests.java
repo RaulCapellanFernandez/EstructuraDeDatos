@@ -51,6 +51,14 @@ public class LimitedPriorityQueueLinkedTests {
 		pq3.enqueue(4, "10");
 		Assert.assertEquals(true, pq3.isFull());
 	}
+	@Test(expected = EmptyCollectionException.class)
+	public void testDesqueueEmpty() throws EmptyCollectionException {
+		pq3.dequeue();
+	}
+	@Test(expected = EmptyCollectionException.class)
+	public void testFirstEmpty() throws EmptyCollectionException {
+		pq3.first();
+	}
 	
 	@Test
 	public void testDesqueue() throws EmptyCollectionException {
