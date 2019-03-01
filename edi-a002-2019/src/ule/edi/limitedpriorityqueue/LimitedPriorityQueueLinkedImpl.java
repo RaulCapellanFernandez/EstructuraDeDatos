@@ -60,8 +60,8 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
     @Override
     public boolean isFull() {
     	if(getSize() < getCapacity()) 
-    		return true;
-    	return false;
+    		return false;
+    	return true;
     }
 
 	@Override
@@ -71,18 +71,18 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 		QueueNode<T> introducir = new QueueNode<T>(p, element);
 		
 		//Cuando la cola esta llena
-		if(isFull()) {
+		if(!isFull()) {
 			//Cuando la lista esta vacia
 			if(isEmpty()) {
 				first = introducir;
 				introducir.next  = null;
-				return element;
+				return null;
 			}
 			//Se introduce en la primera posicion
 			if(p < actual.priority) {
 				introducir.next = first;
 				first = introducir;
-				return element;
+				return null;
 			}
 			
 			//Bucle para el resto de casos
@@ -90,13 +90,13 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 				if(p >= actual.priority && actual.next == null) {
 					actual.next = introducir;
 					introducir = null;
-					return element;
+					return null;
 				}
 				//Introducir un elemento en el medio de una cola 
 				if(p >= actual.priority && p < actual.next.priority) {
 					introducir.next = actual.next;
 					actual.next = introducir;
-					return element;
+					return null;
 				}
 				actual = actual.next;
 			}
@@ -106,7 +106,7 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 		first = actual.next;
 		enqueue(p, element);
 		
-		return null;
+		return first.content;
 	}
 
 	@Override
@@ -119,7 +119,23 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 
 	@Override
 	public T dequeue() throws EmptyCollectionException {
-		// TODO Auto-generated method stub
+		QueueNode<T> actual = first;
+		QueueNode<T> aux;
+		if(first == null)
+			throw new EmptyCollectionException("");
+		if(actual.next == null) {
+			aux = actual;
+			first = null;
+			return aux.content;
+		}
+		while(actual != null) {
+			if(actual.next.next == null){
+				aux = actual.next;
+				actual.next = null;
+				return aux.content;
+			}
+			actual = actual.next;
+		}
 		return null;
 	}
 
