@@ -88,7 +88,10 @@ public class LimitedPriorityQueueLinkedTests {
 		Assert.assertEquals(null,pq3.enqueue(2, "9"));
 		Assert.assertEquals(null,pq3.enqueue(2,"10"));
 		
-		Assert.assertEquals("6",pq3.enqueue(2, "11"));
+		Assert.assertEquals("4",pq3.enqueue(2, "11"));
+		
+		Assert.assertEquals("6",pq3.enqueue(2,"10"));
+		
 	}
 	@Test
 	public void testIsFirst() throws EmptyCollectionException {
