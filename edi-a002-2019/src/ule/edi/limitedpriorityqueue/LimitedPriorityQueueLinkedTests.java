@@ -25,7 +25,7 @@ public class LimitedPriorityQueueLinkedTests {
 
 	}
 	
-	/*
+	
 	@Test
 	public void testPrueba() throws Exception {
 		Assert.assertEquals(true, pq1.isEmpty());
@@ -42,7 +42,8 @@ public class LimitedPriorityQueueLinkedTests {
 		Assert.assertEquals("1", pq1.first());
 		Assert.assertEquals("1", pq1.dequeue());
 		Assert.assertEquals("111", pq1.dequeueLast());
-	}*/
+	}
+	
 	@Test(expected = EmptyCollectionException.class)
 	public void testDequeueLinkedQueue() throws EmptyCollectionException {
 		pq1.dequeue();

@@ -95,6 +95,12 @@ public class LinkedQueue<T> implements QueueADT<T> {
 		if(front == null)
 			throw new EmptyCollectionException("");
 		else {
+			if(front.next == null) {
+				aux = actual;
+				front = null;
+				rear = null;
+				return aux.element;
+			}
 			while(actual != null) {
 				if(actual.next.next == null) {
 					aux = actual.next;

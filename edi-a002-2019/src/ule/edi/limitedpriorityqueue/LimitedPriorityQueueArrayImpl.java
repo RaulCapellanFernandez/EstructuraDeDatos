@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+import ule.edi.limitedpriorityqueue.LinkedQueue.Node;
+
 
 public class LimitedPriorityQueueArrayImpl<T> implements LimitedPriorityQueue<T> {
 	    private int capacity;
@@ -42,12 +44,7 @@ public class LimitedPriorityQueueArrayImpl<T> implements LimitedPriorityQueue<T>
 
     @Override
     public boolean isFull() {
-    	int contador = 0;
-    	for(int i = 0; i < npriorities; i++) {
-    		if(capacity == colas.get(i).size()) 
-    			contador++;
-    	}
-    	if(contador == npriorities)
+		if(capacity == getSize()) 
     		return true;
     	return false;
     }
@@ -55,62 +52,66 @@ public class LimitedPriorityQueueArrayImpl<T> implements LimitedPriorityQueue<T>
 	@Override
 	public T enqueue(int p, T element) {
 		int prioridad = 1;
-		
+		T borrar = null;
 		for(int i = 0; i < npriorities; i++) {
-			System.out.print("Prioridad: "+prioridad+"  Elemento:"+element);
 			if(prioridad == p) {
 				if(capacity > this.getSize()) {
 					colas.get(i).enqueue(element);
-					System.out.println(" Capacidad:"+capacity+"  Cola:"+colas.get(i).size());
 					return null;
 				}else {
-					for(int j = 0; j < npriorities; j++) {
+					for(int j = npriorities-1; j >= 0 ; j--) {
 						if(!colas.get(j).isEmpty()) {
 							try {
-								colas.get(j).dequeue();
-								System.out.println(toString());
-								enqueue(p, element);
-								System.out.println(toString());
-							} catch (EmptyCollectionException e) {
-								// TODO Auto-generated catch block
+							borrar = colas.get(j).dequeueLast();
+							enqueue(p, element);
+							return borrar;
+							} catch (EmptyCollectionException e) { 
 								e.printStackTrace();
 							}
-							
 						}
 					}
 				}
 			}
-			System.out.println();
-			
 			prioridad++;
 		}
-		
 		return element;
 	}
 
 
 	@Override
 	public T first() throws EmptyCollectionException {
-		// TODO Auto-generated method stub
-		return null;
-      
+		if(isEmpty())
+			throw new EmptyCollectionException("");
+		for(int j = 0; j < npriorities ; j++) {
+			if(!colas.get(j).isEmpty()) {
+				return colas.get(j).first();
+			}
+		}
+      return null;
 	}
 
 
 
 	@Override
 	public T dequeue() throws EmptyCollectionException {
-		// TODO Auto-generated method stub
-		return null;
+		T aux = null;
+		if(isEmpty())
+			throw new EmptyCollectionException("");
+		for(int j = 0; j < npriorities; j++) {
+			if(!colas.get(j).isEmpty()) {
+				aux = colas.get(j).first();
+				colas.get(j).dequeue();
+				return aux;
+			}
+		}
+		return aux;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		for(int i = 0; i < npriorities; i++) {
-			if(!colas.get(i).isEmpty())
-				return false;
-		}
-		return true;
+		if(getSize() == 0)
+			return true;
+		return false;
 	}
 
 	

@@ -29,22 +29,33 @@ public class LimitedPriorityQueueArrayTests {
 		Assert.assertEquals(true, pq10.isEmpty());
 		Assert.assertEquals(3, pq10.getCapacity());
 		Assert.assertEquals(null, pq10.enqueue(1, "1_1"));
-		Assert.assertEquals(null, pq10.enqueue(1, "2_1"));
+		Assert.assertEquals(null, pq10.enqueue(2, "2_1"));
 		Assert.assertEquals(null, pq10.enqueue(1, "3_1"));
-		System.out.println(pq10.toString());
-		Assert.assertEquals("4_1", pq10.enqueue(1, "4_1"));
-		System.out.println(pq10.toString());
-		Assert.assertEquals("1_2", pq10.enqueue(2, "1_2"));
-		Assert.assertEquals(null, pq10.enqueue(2, "2_2"));
-		Assert.assertEquals(null, pq10.enqueue(2, "3_2"));
-		Assert.assertEquals("4_2", pq10.enqueue(2, "4_2"));
-		Assert.assertEquals("4_1", pq10.enqueue(1, "4_1"));
-		Assert.assertEquals("4_2", pq10.enqueue(2, "4_2"));
+		Assert.assertEquals("2_1", pq10.enqueue(1, "5_1"));
+		Assert.assertEquals("5_1", pq10.enqueue(2, "6_1"));
+		Assert.assertEquals("6_1", pq10.enqueue(2, "7_1"));
+		Assert.assertEquals("7_1", pq10.enqueue(1, "8_1"));
+		Assert.assertEquals("8_1", pq10.enqueue(2, "9_1"));
+		Assert.assertEquals("9_1", pq10.enqueue(2, "10_1"));
+		Assert.assertEquals("10_1", pq10.enqueue(2, "11_1"));
+		Assert.assertEquals("11_1", pq10.enqueue(1, "12_1"));
 		Assert.assertEquals(true, pq10.isFull());
+		Assert.assertEquals("1_1", pq10.first());
+		Assert.assertEquals("1_1", pq10.dequeue());
 		Assert.assertEquals(false, pq10.isEmpty());
-		System.out.println(pq10.toString());
+		
+		
 	}
-	/*
+	
+	@Test(expected = EmptyCollectionException.class)
+	public void testDequeue() throws EmptyCollectionException {
+		pq10.dequeue();
+	}
+	@Test(expected = EmptyCollectionException.class)
+	public void testFirst() throws EmptyCollectionException {
+		pq10.first();
+	}
+	
 	@Test
 	public void testEnVacia() throws Exception {
 		
@@ -66,7 +77,7 @@ public class LimitedPriorityQueueArrayTests {
 	    Assert.assertEquals(pq10.isEmpty(), false);
 	    Assert.assertEquals(pq10.getSize(), 3);
 	    Assert.assertEquals(3, pq10.getCapacity());
-	    Assert.assertEquals(pq10.isFull(), false);
+	    Assert.assertEquals(pq10.isFull(), true);
 	    Assert.assertEquals(pq10.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
 	  
 	}
@@ -77,8 +88,8 @@ public class LimitedPriorityQueueArrayTests {
 	    Assert.assertEquals(pq10.enqueue(2, "Prior2_1"), null);
 	    Assert.assertEquals(pq10.enqueue(2, "Prior2_2"), null);
 	    Assert.assertEquals(pq10.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
-	    Assert.assertEquals(pq10.enqueue(2, "Prior2_3"), "Prior2_3");    // El elemento insertado tiene menor prioridad que los que estaban, por tanto es el que sale
-	    Assert.assertEquals(pq10.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
+	    Assert.assertEquals(pq10.enqueue(2, "Prior2_3"), "Prior2_2");    // El elemento insertado tiene menor prioridad que los que estaban, por tanto es el que sale
+	    Assert.assertEquals(pq10.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_3))]");
 	  
 	}
 	
@@ -88,8 +99,8 @@ public class LimitedPriorityQueueArrayTests {
 	    Assert.assertEquals(pq10.enqueue(2, "Prior2_1"), null);
 	    Assert.assertEquals(pq10.enqueue(2, "Prior2_2"), null);
 	    Assert.assertEquals(pq10.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
-	    Assert.assertEquals(pq10.enqueue(1, "Prior1_2"), "Prior2_2");
+	    Assert.assertEquals(pq10.enqueue(1, "Prior1_2"), "Prior2_2");//Este test esta mal
 	    Assert.assertEquals(pq10.toString(), "[( Priority:1 (Prior1_1, Prior1_2)), ( Priority:2 (Prior2_1))]");
 	  
-	}*/
+	}
 }
