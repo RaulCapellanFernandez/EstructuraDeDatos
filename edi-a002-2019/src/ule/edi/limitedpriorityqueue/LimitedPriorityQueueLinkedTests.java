@@ -29,11 +29,14 @@ public class LimitedPriorityQueueLinkedTests {
 	
 	@Test
 	public void testPrueba() throws Exception {
+		Assert.assertEquals(true, pq1.isEmpty());
+		Assert.assertEquals(0, pq1.size());
+		
 		pq1.enqueue("1");
 		pq1.enqueue("2");
 		pq1.enqueue("3");
 		pq1.enqueue("111");
-
+		Assert.assertEquals(4, pq1.size());
 		Assert.assertEquals("1, 2, 3, 111", pq1.toString());
 	}
 	

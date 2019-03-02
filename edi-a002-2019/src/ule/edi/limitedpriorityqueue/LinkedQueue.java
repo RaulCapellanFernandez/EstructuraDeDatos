@@ -57,21 +57,27 @@ public class LinkedQueue<T> implements QueueADT<T> {
 
 	@Override
 	public T first()  throws EmptyCollectionException{
-		// TODO Auto-generated method stub
-		return null;
-	
-		
+		if(front == null)
+			throw new EmptyCollectionException("");
+		else
+			return front.element;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		 // TODO Auto-generated method stub
-		return false;
+		if(front == null)
+			return true;
+		else
+			return false;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
+		Node<T> actual  = front;
+		while (actual != rear) {
+			count++;
+			actual = actual.next;
+		}
 		return count;
 	}
 
