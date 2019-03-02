@@ -43,8 +43,6 @@ public class LinkedQueue<T> implements QueueADT<T> {
 			}
 			actual = actual.next;
 		}
-		
-		
 	}
 
 	@Override
