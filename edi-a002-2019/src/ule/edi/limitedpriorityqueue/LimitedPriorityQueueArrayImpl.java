@@ -52,7 +52,15 @@ public class LimitedPriorityQueueArrayImpl<T> implements LimitedPriorityQueue<T>
 	@Override
 	public T enqueue(int p, T element) {
 		int prioridad = 1;
+		int pMin = 0;
 		T borrar = null;
+		
+		for(int i = 0; i < npriorities; i++) {
+			if(!colas.get(i).isEmpty())
+				pMin = i+1;
+		}
+		
+		
 		for(int i = 0; i < npriorities; i++) {
 			if(prioridad == p) {
 				if(capacity > this.getSize()) {
@@ -62,9 +70,16 @@ public class LimitedPriorityQueueArrayImpl<T> implements LimitedPriorityQueue<T>
 					for(int j = npriorities-1; j >= 0 ; j--) {
 						if(!colas.get(j).isEmpty()) {
 							try {
-							borrar = colas.get(j).dequeueLast();
-							enqueue(p, element);
-							return borrar;
+								System.out.println(p+"-----------");
+								System.out.println(pMin+"+++++++++++");
+								if(pMin <= p) {
+									return element;
+								}else {
+									borrar = colas.get(j).dequeueLast();
+									enqueue(p, element);
+									return borrar;
+								}
+							
 							} catch (EmptyCollectionException e) { 
 								e.printStackTrace();
 							}

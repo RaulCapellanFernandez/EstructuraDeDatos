@@ -18,6 +18,13 @@ public class LimitedPriorityQueueArrayTests {
 
 	}
 	
+	@Before
+	public void testBefore() throws Exception{
+	    pq10 = new LimitedPriorityQueueArrayImpl<String>(3,2); // limitado a 3 elementos, las posibles prioridades son [1,2]
+	    pq5 = new LimitedPriorityQueueArrayImpl<String>(5,3); // limitado a 5 elementos, las posibles prioridades son [1,2,3]
+
+	}
+	
 	@Test
 	public void testPrueba() throws Exception {
 		Assert.assertEquals(true, pq1.isEmpty());
@@ -50,34 +57,39 @@ public class LimitedPriorityQueueArrayTests {
 		
 	}
 	
-	@Before
-	public void testBefore() throws Exception{
-	    pq10 = new LimitedPriorityQueueArrayImpl<String>(3,2); // limitado a 3 elementos, las posibles prioridades son [1,2]
-	    pq5 = new LimitedPriorityQueueArrayImpl<String>(5,3); // limitado a 5 elementos, las posibles prioridades son [1,2,3]
-
-	}
+	
 	@Test
 	public void testMisCosas() throws Exception {
 		Assert.assertEquals(false, pq10.isFull());
 		Assert.assertEquals(true, pq10.isEmpty());
 		Assert.assertEquals(3, pq10.getCapacity());
+		System.out.println(pq10.toString());
 		Assert.assertEquals(null, pq10.enqueue(1, "1_1"));
+		System.out.println(pq10.toString());
 		Assert.assertEquals(null, pq10.enqueue(2, "2_1"));
+		System.out.println(pq10.toString());
 		Assert.assertEquals(null, pq10.enqueue(1, "3_1"));
+		System.out.println(pq10.toString());
 		Assert.assertEquals("2_1", pq10.enqueue(1, "5_1"));
-		Assert.assertEquals("5_1", pq10.enqueue(2, "6_1"));
+		System.out.println(pq10.toString());
+		Assert.assertEquals("6_1", pq10.enqueue(2, "6_1"));
+		System.out.println(pq10.toString());
 		Assert.assertEquals("6_1", pq10.enqueue(2, "7_1"));
+		System.out.println(pq10.toString());
 		Assert.assertEquals("7_1", pq10.enqueue(1, "8_1"));
+		System.out.println(pq10.toString());
 		Assert.assertEquals("8_1", pq10.enqueue(2, "9_1"));
+		System.out.println(pq10.toString());
 		Assert.assertEquals("9_1", pq10.enqueue(2, "10_1"));
+		System.out.println(pq10.toString());
 		Assert.assertEquals("10_1", pq10.enqueue(2, "11_1"));
+		System.out.println(pq10.toString());
 		Assert.assertEquals("11_1", pq10.enqueue(1, "12_1"));
+		System.out.println(pq10.toString());
 		Assert.assertEquals(true, pq10.isFull());
 		Assert.assertEquals("1_1", pq10.first());
 		Assert.assertEquals("1_1", pq10.dequeue());
 		Assert.assertEquals(false, pq10.isEmpty());
-		
-		
 	}
 	
 	@Test(expected = EmptyCollectionException.class)
@@ -108,8 +120,7 @@ public class LimitedPriorityQueueArrayTests {
 	    Assert.assertEquals(pq10.getSize(), 2);	
 	    Assert.assertEquals(pq10.enqueue(2, "Prior2_2"), null);
 	    Assert.assertEquals(pq10.isEmpty(), false);
-	    Assert.assertEquals(pq10.getSize(), 3);
-	    Assert.assertEquals(3, pq10.getCapacity());
+	    Assert.assertEquals(pq10.getSize(), 3);	
 	    Assert.assertEquals(pq10.isFull(), true);
 	    Assert.assertEquals(pq10.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
 	  
@@ -117,12 +128,17 @@ public class LimitedPriorityQueueArrayTests {
 	
 	@Test
 	public void testInsertarMenorPrioEnLLena() throws Exception{
+		System.out.println(pq10.toString());
 	    Assert.assertEquals(pq10.enqueue(1, "Prior1_1"), null);
+	    System.out.println(pq10.toString());
 	    Assert.assertEquals(pq10.enqueue(2, "Prior2_1"), null);
+	    System.out.println(pq10.toString());
 	    Assert.assertEquals(pq10.enqueue(2, "Prior2_2"), null);
+	    System.out.println(pq10.toString());
 	    Assert.assertEquals(pq10.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
-	    Assert.assertEquals(pq10.enqueue(2, "Prior2_3"), "Prior2_2");    // El elemento insertado tiene menor prioridad que los que estaban, por tanto es el que sale
-	    Assert.assertEquals(pq10.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_3))]");
+	    Assert.assertEquals(pq10.enqueue(2, "Prior2_3"), "Prior2_3");    // El elemento insertado tiene menor prioridad que los que estaban, por tanto es el que sale
+	    System.out.println(pq10.toString());
+	    Assert.assertEquals(pq10.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
 	  
 	}
 	
@@ -132,7 +148,7 @@ public class LimitedPriorityQueueArrayTests {
 	    Assert.assertEquals(pq10.enqueue(2, "Prior2_1"), null);
 	    Assert.assertEquals(pq10.enqueue(2, "Prior2_2"), null);
 	    Assert.assertEquals(pq10.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
-	    Assert.assertEquals(pq10.enqueue(1, "Prior1_2"), "Prior2_2");//Este test esta mal
+	    Assert.assertEquals(pq10.enqueue(1, "Prior1_2"), "Prior2_2");
 	    Assert.assertEquals(pq10.toString(), "[( Priority:1 (Prior1_1, Prior1_2)), ( Priority:2 (Prior2_1))]");
 	  
 	}
