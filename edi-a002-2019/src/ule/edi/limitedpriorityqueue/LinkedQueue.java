@@ -27,9 +27,24 @@ public class LinkedQueue<T> implements QueueADT<T> {
 	
 	@Override
 	public void enqueue(T element) {
-		// TODO Auto-generated method stub
-	 
-
+		Node<T> actual  = front;
+		Node<T> introducir = new Node<T>(element);
+		
+		if(actual == null) {
+			front = introducir;
+			introducir.next = rear;
+			return;
+		}
+		while (actual != rear) {
+			if(actual.next == rear) {
+				introducir.next = rear;
+				actual.next = introducir;
+				return;
+			}
+			actual = actual.next;
+		}
+		
+		
 	}
 
 	@Override

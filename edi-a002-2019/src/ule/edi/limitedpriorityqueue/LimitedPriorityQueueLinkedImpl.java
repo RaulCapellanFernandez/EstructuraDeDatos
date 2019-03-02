@@ -1,4 +1,4 @@
-package ule.edi.limitedpriorityqueue;
+ package ule.edi.limitedpriorityqueue;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -67,7 +67,8 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 	@Override
 	public T enqueue(int p, T element) {
 		QueueNode<T> actual = first;
-		QueueNode<T> anterior;
+		QueueNode<T> borrar = first;
+		QueueNode<T> aux = null;
 		QueueNode<T> introducir = new QueueNode<T>(p, element);
 		
 		//Cuando la cola esta llena
@@ -101,13 +102,13 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 				actual = actual.next;
 			}
 		}
-		//Cuando la lista esta llena desencola el primer elemento
+		//Cuando la lista esta llena desencola el ultimo elemento
 		System.out.println("La lista esta llena quito el de mayor prioridad");
-		anterior = first;
+		aux = first;
 		first = actual.next;
 		enqueue(p, element);
 		
-		return anterior.content;
+		return aux.content;
 	}
 
 	@Override
@@ -124,20 +125,11 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 		QueueNode<T> aux;
 		if(first == null)
 			throw new EmptyCollectionException("");
-		if(actual.next == null) {
+		
 			aux = actual;
 			first = null;
-			return aux.content;
-		}
-		while(actual != null) {
-			if(actual.next.next == null){
-				aux = actual.next;
-				actual.next = null;
-				return aux.content;
-			}
-			actual = actual.next;
-		}
-		return null;
+			
+		return aux.content;
 	}
 
 	@Override
