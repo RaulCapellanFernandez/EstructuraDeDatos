@@ -48,12 +48,17 @@ public class LinkedQueue<T> implements QueueADT<T> {
 	}
 
 	@Override
-	public T dequeue() throws EmptyCollectionException
-	   {
-		// TODO Auto-generated method stub
-		return null;
-
-	   }
+	public T dequeue() throws EmptyCollectionException {
+		Node<T> aux;
+		
+		if(front == null)
+			throw new EmptyCollectionException("");
+		else {
+			aux = front;
+			front = front.next;
+		}
+		return aux.element;
+	}
 
 	@Override
 	public T first()  throws EmptyCollectionException{
@@ -73,6 +78,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
 
 	@Override
 	public int size() {
+		count = 0;
 		Node<T> actual  = front;
 		while (actual != rear) {
 			count++;
@@ -83,7 +89,21 @@ public class LinkedQueue<T> implements QueueADT<T> {
 
 	@Override
 	public T dequeueLast() throws EmptyCollectionException {
-	  // TODO Auto-generated method stub
+		Node<T> aux;
+		Node<T> actual  = front;
+		
+		if(front == null)
+			throw new EmptyCollectionException("");
+		else {
+			while(actual != null) {
+				if(actual.next.next == null) {
+					aux = actual.next;
+					actual.next = null;
+					return aux.element;
+				}
+				actual = actual.next;
+			}
+		}
 		return null;
 	}
 

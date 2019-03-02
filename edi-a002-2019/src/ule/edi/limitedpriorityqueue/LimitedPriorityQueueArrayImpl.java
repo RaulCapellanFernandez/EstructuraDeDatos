@@ -10,18 +10,17 @@ public class LimitedPriorityQueueArrayImpl<T> implements LimitedPriorityQueue<T>
 	    private int npriorities;
 	    private int count;
 
-	    private ArrayList<LinkedQueue<T>> colas;
+	    private ArrayList<LinkedQueue<T>> colas = new ArrayList<LinkedQueue<T>>();
 	
 	
 
 	public LimitedPriorityQueueArrayImpl(int capacity, int npriorities) {
-		
-      //TODO  asignar los valores de los atributos
-	  // Crear el arrayList, y añadir una cola por cada una de las prioridades (1..npriorities)
-	  // Si capacidad <=0 disparar la excepción: IllegalArgumentException
-	
-		
-		
+		this.capacity = capacity;
+		this.npriorities = npriorities;
+		for(int i = 0; i < npriorities; i++) {
+			LinkedQueue<T> cola = new LinkedQueue<T>();
+			colas.add(cola);
+		}
 	}
 	
 
@@ -30,26 +29,63 @@ public class LimitedPriorityQueueArrayImpl<T> implements LimitedPriorityQueue<T>
     @Override
     public int getCapacity() {
 		return capacity;
-    	
     }
 
     @Override
     public int getSize() {
+    	count  =0;
+    	for(int i = 0; i < colas.size(); i++) {
+			count = count +colas.get(i).size();
+    	}
     	return count;
     }
 
     @Override
     public boolean isFull() {
-    	// TODO Auto-generated method stub
-        return false;
+    	int contador = 0;
+    	for(int i = 0; i < npriorities; i++) {
+    		if(capacity == colas.get(i).size()) 
+    			contador++;
+    	}
+    	if(contador == npriorities)
+    		return true;
+    	return false;
     }
 
 	@Override
 	public T enqueue(int p, T element) {
-		// TODO Auto-generated method stub
+		int prioridad = 1;
 		
-		return null;
-  
+		for(int i = 0; i < npriorities; i++) {
+			System.out.print("Prioridad: "+prioridad+"  Elemento:"+element);
+			if(prioridad == p) {
+				if(capacity > this.getSize()) {
+					colas.get(i).enqueue(element);
+					System.out.println(" Capacidad:"+capacity+"  Cola:"+colas.get(i).size());
+					return null;
+				}else {
+					for(int j = 0; j < npriorities; j++) {
+						if(!colas.get(j).isEmpty()) {
+							try {
+								colas.get(j).dequeue();
+								System.out.println(toString());
+								enqueue(p, element);
+								System.out.println(toString());
+							} catch (EmptyCollectionException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+						}
+					}
+				}
+			}
+			System.out.println();
+			
+			prioridad++;
+		}
+		
+		return element;
 	}
 
 
@@ -70,7 +106,11 @@ public class LimitedPriorityQueueArrayImpl<T> implements LimitedPriorityQueue<T>
 
 	@Override
 	public boolean isEmpty() {
-		return count==0; 
+		for(int i = 0; i < npriorities; i++) {
+			if(!colas.get(i).isEmpty())
+				return false;
+		}
+		return true;
 	}
 
 	
@@ -79,7 +119,7 @@ public class LimitedPriorityQueueArrayImpl<T> implements LimitedPriorityQueue<T>
 		if (! this.isEmpty()) {
 			StringBuffer rx = new StringBuffer();
 			rx.append("[");
-			for (int n = 0; n < this.npriorities; ++n) {
+			for (int n = 0; n < this.npriorities; n++) {
 				rx.append("( Priority:"+(n+1)+" (");
 				rx.append(colas.get(n).toString());
 				rx.append(")), ");

@@ -13,7 +13,6 @@ public class LimitedPriorityQueueLinkedTests {
 	
 	private LinkedQueue<String> pq1 = new LinkedQueue<>();
 	
-	
 	public LimitedPriorityQueueLinkedTests() {
 		
 
@@ -26,18 +25,36 @@ public class LimitedPriorityQueueLinkedTests {
 
 	}
 	
-	
+	/*
 	@Test
 	public void testPrueba() throws Exception {
 		Assert.assertEquals(true, pq1.isEmpty());
 		Assert.assertEquals(0, pq1.size());
+		Assert.assertEquals("", pq1.toString());
 		
 		pq1.enqueue("1");
 		pq1.enqueue("2");
 		pq1.enqueue("3");
 		pq1.enqueue("111");
+		
 		Assert.assertEquals(4, pq1.size());
 		Assert.assertEquals("1, 2, 3, 111", pq1.toString());
+		Assert.assertEquals("1", pq1.first());
+		Assert.assertEquals("1", pq1.dequeue());
+		Assert.assertEquals("111", pq1.dequeueLast());
+	}*/
+	@Test(expected = EmptyCollectionException.class)
+	public void testDequeueLinkedQueue() throws EmptyCollectionException {
+		pq1.dequeue();
+	}
+	@Test(expected = EmptyCollectionException.class)
+	public void testDequeueLastLinkedQueue() throws EmptyCollectionException {
+		pq1.dequeueLast();
+	}
+	@Test(expected = EmptyCollectionException.class)
+	public void testFirstEmptyLinkedQueue() throws EmptyCollectionException {
+		pq1.first();
+		
 	}
 	
 	
@@ -72,6 +89,7 @@ public class LimitedPriorityQueueLinkedTests {
 	@Test(expected = EmptyCollectionException.class)
 	public void testDesqueueEmpty() throws EmptyCollectionException {
 		pq3.dequeue();
+		
 	}
 	@Test(expected = EmptyCollectionException.class)
 	public void testFirstEmpty() throws EmptyCollectionException {
