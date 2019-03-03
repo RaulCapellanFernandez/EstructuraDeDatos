@@ -60,7 +60,6 @@ public class LimitedPriorityQueueArrayImpl<T> implements LimitedPriorityQueue<T>
 				pMin = i+1;
 		}
 		
-		
 		for(int i = 0; i < npriorities; i++) {
 			if(prioridad == p) {
 				if(capacity > this.getSize()) {
@@ -70,8 +69,6 @@ public class LimitedPriorityQueueArrayImpl<T> implements LimitedPriorityQueue<T>
 					for(int j = npriorities-1; j >= 0 ; j--) {
 						if(!colas.get(j).isEmpty()) {
 							try {
-								System.out.println(p+"-----------");
-								System.out.println(pMin+"+++++++++++");
 								if(pMin <= p) {
 									return element;
 								}else {

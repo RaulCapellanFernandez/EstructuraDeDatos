@@ -74,21 +74,11 @@ public class LimitedPriorityQueueArrayTests {
 		System.out.println(pq10.toString());
 		Assert.assertEquals("6_1", pq10.enqueue(2, "6_1"));
 		System.out.println(pq10.toString());
-		Assert.assertEquals("6_1", pq10.enqueue(2, "7_1"));
-		System.out.println(pq10.toString());
-		Assert.assertEquals("7_1", pq10.enqueue(1, "8_1"));
-		System.out.println(pq10.toString());
-		Assert.assertEquals("8_1", pq10.enqueue(2, "9_1"));
-		System.out.println(pq10.toString());
-		Assert.assertEquals("9_1", pq10.enqueue(2, "10_1"));
-		System.out.println(pq10.toString());
-		Assert.assertEquals("10_1", pq10.enqueue(2, "11_1"));
-		System.out.println(pq10.toString());
-		Assert.assertEquals("11_1", pq10.enqueue(1, "12_1"));
-		System.out.println(pq10.toString());
+		
 		Assert.assertEquals(true, pq10.isFull());
 		Assert.assertEquals("1_1", pq10.first());
 		Assert.assertEquals("1_1", pq10.dequeue());
+		Assert.assertEquals(false, pq10.isFull());
 		Assert.assertEquals(false, pq10.isEmpty());
 	}
 	
