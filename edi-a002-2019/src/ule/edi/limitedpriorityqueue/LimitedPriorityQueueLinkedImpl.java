@@ -67,10 +67,16 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 	@Override
 	public T enqueue(int p, T element) {
 		QueueNode<T> actual = first;
-		QueueNode<T> borrar = first;
+		QueueNode<T> min = first;
 		QueueNode<T> aux = null;
 		QueueNode<T> introducir = new QueueNode<T>(p, element);
+		int pMin = 0;
 		
+		while(min != null) {
+			if(min.next == null)
+				pMin = min.priority;
+			min = min.next;
+		}
 		//Cuando la cola esta llena
 		if(!isFull()) {
 			//Cuando la lista esta vacia
@@ -102,10 +108,19 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 				actual = actual.next;
 			}
 		}
-		//Cuando la lista esta llena desencola el ultimo elemento
-		System.out.println("La lista esta llena quito el de mayor prioridad");
-		aux = first;
-		first = actual.next;
+		//La lista esta llena y el proceso tiene menos prioridad que el ultimo introducido
+		if(pMin <= p) {
+			return element;
+		}
+		//La lista esta llena y el proceso tiene mas prioridad que el ultimo introducido
+		actual = first;
+		while(actual != null) {
+			if(actual.next.next == null) {
+				aux = actual.next;
+				actual.next = null;
+			}
+			actual = actual.next;
+		}
 		enqueue(p, element);
 		
 		return aux.content;
@@ -146,7 +161,7 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 			StringBuffer rx = new StringBuffer();
 			rx.append("[");
 		      while(actual != null) {
-		    	  rx.append(actual.content);
+		    	  rx.append("E->"+actual.content+" P->"+actual.priority+ "/  ");
 		    	  rx.append(" , ");
 		    	  actual = actual.next;
 		      }
