@@ -108,6 +108,15 @@ public class LimitedPriorityQueueLinkedTests {
 	}
 	
 	@Test
+	public void testToString() throws Exception {
+		pq3.enqueue(4, "1");
+		pq3.enqueue(3, "1");
+		pq3.enqueue(1, "1");
+		
+		Assert.assertEquals("[( Priority:1 (1)), ( Priority:2()), ( Priority:3 (1)), ( Priority:4 (1))]", pq3.toString());
+	}
+	
+	@Test
 	public void testSomething() throws Exception {
 		
 	    Assert.assertEquals(pq3.isEmpty(), true);
@@ -128,7 +137,7 @@ public class LimitedPriorityQueueLinkedTests {
 	    Assert.assertEquals(pq3.isEmpty(), false);
 	    Assert.assertEquals(pq3.getSize(), 3);	
 	    Assert.assertEquals(pq3.isFull(), false);
-	    //Assert.assertEquals(pq3.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
+	    Assert.assertEquals(pq3.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
 	  
 	}
 	
@@ -146,7 +155,7 @@ public class LimitedPriorityQueueLinkedTests {
 	    Assert.assertEquals(pq4.isFull(), true);
 	    Assert.assertEquals(pq4.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
 	    Assert.assertEquals(pq4.enqueue(2, "Prior2_3"), "Prior2_3");
-	    //Assert.assertEquals(pq4.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
+	    Assert.assertEquals(pq4.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
 	  
 	}
 }

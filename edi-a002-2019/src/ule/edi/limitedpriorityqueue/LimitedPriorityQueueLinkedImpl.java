@@ -156,16 +156,38 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 
 	@Override
 	public String toString() {
+		boolean longitud = false;
+		QueueNode<T> min = first;
 		QueueNode<T> actual = first;
+		int prioridad = 1;
+		
+		int pMin = 0;
+		
+		while(min != null) {
+			if(min.next == null) 
+				pMin = min.priority;
+			min = min.next;
+		}
+	
 		if (! this.isEmpty()) {
 			StringBuffer rx = new StringBuffer();
 			rx.append("[");
-		      while(actual != null) {
-		    	  rx.append("E->"+actual.content+" P->"+actual.priority+ "/  ");
-		    	  rx.append(" , ");
-		    	  actual = actual.next;
-		      }
-		
+			for (int n = 1; n <= pMin; n++) {
+				longitud = false;
+				rx.append("( Priority:"+(n)+" (");
+				while(actual != null && actual.priority == n ) {
+					longitud = true;
+					rx.append(actual.content+", ");
+					actual = actual.next;
+				}
+				rx.delete(rx.length() - 2, rx.length());
+				if(longitud)
+					rx.append(")), ");
+				else
+					rx.append("()), ");
+
+			}
+			rx.delete(rx.length() - 2, rx.length());
 			rx.append("]");
 			return rx.toString();
 		} else {
