@@ -164,11 +164,11 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 		      while(actual !=null) {
 		    	  if(pene) {
 		    		  rx.append("( Priority:"+(actual.priority)+" (");
-		    		  System.out.println(rx.toString());
+		    		  //System.out.println(rx.toString());
 		    		  pene = false;
 		    	  }
 		    	  rx.append(actual.content+", ");
-		    	  System.out.println(rx.toString());
+		    	  //System.out.println(rx.toString());
 		    	  if(actual.next == null||actual.priority != actual.next.priority) {
 		    		  rx.delete(rx.length() - 2, rx.length());
 		    		  pene = true;
@@ -179,7 +179,7 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 		      
 		    rx.delete(rx.length() - 2, rx.length());
 			rx.append("]");
-			System.out.println("---->"+rx.toString());
+			//System.out.println("---->"+rx.toString());
 			return rx.toString();
 		} else {
 			return "[]";
