@@ -50,6 +50,7 @@ public class LimitedPriorityQueueLinkedTests {
 		pq3.enqueue(4, "8");
 		pq3.enqueue(4, "9");
 		pq3.enqueue(4, "10");
+		System.out.println(pq3.toString());
 		Assert.assertEquals(true, pq3.isFull());
 	}
 	@Test(expected = EmptyCollectionException.class)
@@ -99,6 +100,7 @@ public class LimitedPriorityQueueLinkedTests {
 		Assert.assertEquals("10",pq3.enqueue(2,"10"));
 		Assert.assertEquals("8",pq3.enqueue(1, "11"));
 		Assert.assertEquals("5",pq3.enqueue(1,"10"));
+		System.out.println(pq3.toString());
 		
 	}
 	@Test
@@ -112,7 +114,7 @@ public class LimitedPriorityQueueLinkedTests {
 		pq3.enqueue(4, "1");
 		pq3.enqueue(3, "1");
 		pq3.enqueue(1, "1");
-		
+		System.out.println(pq3.toString());
 		Assert.assertEquals("[( Priority:1 (1)), ( Priority:2()), ( Priority:3 (1)), ( Priority:4 (1))]", pq3.toString());
 	}
 	
@@ -138,6 +140,7 @@ public class LimitedPriorityQueueLinkedTests {
 	    Assert.assertEquals(pq3.getSize(), 3);	
 	    Assert.assertEquals(pq3.isFull(), false);
 	    Assert.assertEquals(pq3.toString(), "[( Priority:1 (Prior1_1)), ( Priority:2 (Prior2_1, Prior2_2))]");
+	    System.out.println(pq3.toString());
 	  
 	}
 	

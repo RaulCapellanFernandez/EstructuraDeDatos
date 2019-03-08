@@ -156,39 +156,30 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 
 	@Override
 	public String toString() {
-		boolean longitud = false;
-		QueueNode<T> min = first;
 		QueueNode<T> actual = first;
-		int prioridad = 1;
-		
-		int pMin = 0;
-		
-		while(min != null) {
-			if(min.next == null) 
-				pMin = min.priority;
-			min = min.next;
-		}
-	
+		boolean pene = true;
 		if (! this.isEmpty()) {
 			StringBuffer rx = new StringBuffer();
 			rx.append("[");
-			for (int n = 1; n <= pMin; n++) {
-				longitud = false;
-				rx.append("( Priority:"+(n)+" (");
-				while(actual != null && actual.priority == n ) {
-					longitud = true;
-					rx.append(actual.content+", ");
-					actual = actual.next;
-				}
-				rx.delete(rx.length() - 2, rx.length());
-				if(longitud)
-					rx.append(")), ");
-				else
-					rx.append("()), ");
-
-			}
-			rx.delete(rx.length() - 2, rx.length());
+		      while(actual !=null) {
+		    	  if(pene) {
+		    		  rx.append("( Priority:"+(actual.priority)+" (");
+		    		  System.out.println(rx.toString());
+		    		  pene = false;
+		    	  }
+		    	  rx.append(actual.content+", ");
+		    	  System.out.println(rx.toString());
+		    	  if(actual.next == null||actual.priority != actual.next.priority) {
+		    		  rx.delete(rx.length() - 2, rx.length());
+		    		  pene = true;
+		    		  rx.append(")), ");
+		    	  }
+		    	  actual = actual.next;
+		      }
+		      
+		    rx.delete(rx.length() - 2, rx.length());
 			rx.append("]");
+			System.out.println("---->"+rx.toString());
 			return rx.toString();
 		} else {
 			return "[]";
