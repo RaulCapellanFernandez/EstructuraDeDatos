@@ -55,6 +55,11 @@ public class LimitedPriorityQueueArrayImpl<T> implements LimitedPriorityQueue<T>
 		int pMin = 0;
 		T borrar = null;
 		
+		if(p <= 0 || p > npriorities)
+			throw new IllegalArgumentException("Inutil hazlo bien");
+		if(element == null)
+			throw new NullPointerException("Inutil hazlo bien");
+		
 		for(int i = 0; i < npriorities; i++) {
 			if(!colas.get(i).isEmpty())
 				pMin = i+1;

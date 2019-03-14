@@ -72,6 +72,11 @@ public class LimitedPriorityQueueLinkedImpl<T> implements LimitedPriorityQueue<T
 		QueueNode<T> introducir = new QueueNode<T>(p, element);
 		int pMin = 0;
 		
+		if(p <= 0)
+			throw new IllegalArgumentException("Inutil hazlo bien");
+		if(element == null)
+			throw new NullPointerException("Inutil hazlo bien");
+		
 		while(min != null) {
 			if(min.next == null)
 				pMin = min.priority;

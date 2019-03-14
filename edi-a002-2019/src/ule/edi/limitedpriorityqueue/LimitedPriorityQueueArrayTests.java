@@ -24,6 +24,12 @@ public class LimitedPriorityQueueArrayTests {
 	    pq5 = new LimitedPriorityQueueArrayImpl<String>(5,3); // limitado a 5 elementos, las posibles prioridades son [1,2,3]
 
 	}
+	@Test
+	public void testfirstLineasAmarillas() throws Exception {
+		pq10.enqueue(2, "2_1");
+		Assert.assertEquals("2_1", pq10.first());
+		Assert.assertEquals("2_1", pq10.dequeue());
+	}
 	
 	@Test
 	public void testPrueba() throws Exception {
@@ -54,6 +60,21 @@ public class LimitedPriorityQueueArrayTests {
 	@Test(expected = EmptyCollectionException.class)
 	public void testFirstEmptyLinkedQueue() throws EmptyCollectionException {
 		pq1.first();
+		
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testEnqueueException() throws IllegalArgumentException {
+		pq10.enqueue(-1,"1");
+		
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testEnqueueException1() throws IllegalArgumentException {
+		pq10.enqueue(100,"1");
+		
+	}
+	@Test(expected = NullPointerException.class)
+	public void testEnqueueException2() throws NullPointerException {
+		pq5.enqueue(1,null);
 		
 	}
 	

@@ -23,7 +23,7 @@ public class LimitedPriorityQueueLinkedTests {
 	    pq4 = new LimitedPriorityQueueLinkedImpl<String>(3);
 	    pq5 = new LimitedPriorityQueueLinkedImpl<String>(5); // limitado a 5 elementos
 
-	}	
+	}
 	
 	@Test
 	public void testGetCapacity() throws Exception {
@@ -55,6 +55,16 @@ public class LimitedPriorityQueueLinkedTests {
 	@Test(expected = EmptyCollectionException.class)
 	public void testDesqueueEmpty() throws EmptyCollectionException {
 		pq3.dequeue();
+		
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testEnqueueException() throws IllegalArgumentException {
+		pq3.enqueue(-1, "1");
+		
+	}
+	@Test(expected = NullPointerException.class)
+	public void testEnqueueException2() throws NullPointerException {
+		pq3.enqueue(1, null);
 		
 	}
 	@Test(expected = EmptyCollectionException.class)
