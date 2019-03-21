@@ -7,8 +7,8 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	/**
 	 * Nodo doblemente enlazado.
 	 * 
-	 * Como es estática, no tiene en ámbito el parámetro 'T' de la
-	 * clase que la contiene. El parámetro 'D' será sustituído por
+	 * Como es estÃ¡tica, no tiene en Ã¡mbito el parÃ¡metro 'T' de la
+	 * clase que la contiene. El parÃ¡metro 'D' serÃ¡ sustituÃ­do por
 	 * un tipo particular cuando se use el nodo, por ejemplo:
 	 * 
 	 * 		DoubleNode<T> cab;
@@ -34,10 +34,10 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	}
 
 	/**
-	 * Apunta al nodo cabecera; siempre habrá un nodo vacío (sin elemento) que actua de cabecera
-	 *  OJO!!! ESTE NODO CABECERA DEBERÁ CREARSE EN CADA CONSTRUCTOR DE LA LISTA
+	 * Apunta al nodo cabecera; siempre habrÃ¡ un nodo vacÃ­o (sin elemento) que actua de cabecera
+	 *  OJO!!! ESTE NODO CABECERA DEBERÃ� CREARSE EN CADA CONSTRUCTOR DE LA LISTA
 	 */
-	private DoubleNode<T> cab;
+	private DoubleNode<T> cab = new DoubleNode<T>(null);
 	
 	
 	
@@ -47,23 +47,23 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	
 	
 	/**
-	 * Construye una lista vacía.
+	 * Construye una lista vacÃ­a.
 	 */
 	public DoubleLinkedListImpl() {
-		//TODO
-		// Deberá crear el nodo cabecera vacío
-	
+		cab = new DoubleNode<T>(null);	
+		cab.next = cab;
+		cab.previous = cab;
 	}
 	
 	/**
 	 * Construye una lista con los elementos dados.
 	 * 
-	 * Java creará un array 'elements' con los dados en la
+	 * Java crearÃ¡ un array 'elements' con los dados en la
 	 * llamada al constructor; por ejemplo:
 	 * 
 	 * 	x = new DoubleLinkedList<String>("A", "B", "C");
 	 * 
-	 * ejecuta este método con un array [A, B, C] en 
+	 * ejecuta este mÃ©todo con un array [A, B, C] en 
 	 * 'elements'.
 	 * 
 	 * @param elements
@@ -177,33 +177,98 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	
 	@Override
 	public boolean isEmpty() {
-		return false;
-		// TODO Auto-generated method stub
-	
+		if(cab.next == cab)
+			return true;
+		else
+			return false;
 		
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		DoubleNode<T> cabAux = cab;
+		int tam = 0;
+		while(cabAux.next != cab) {
+			tam++;
+			cabAux = cabAux.next;
+		}
+		return tam;
 	}
 	
 	@Override
 	public void addFirst(T element) {
-		// TODO Auto-generated method stub
-		
+		DoubleNode<T> introducir = new DoubleNode<T>(element);
+		//Cuando la lista esta vacia
+		if(isEmpty()) {
+			cab.next = introducir;
+			cab.previous = introducir;
+			introducir.previous = cab;
+			introducir.next = cab;
+		}
+		//Insertar en segunda posicion
+		else if(cab.next.next == cab) {
+			cab.next = introducir;
+			cab.previous.previous = introducir;
+			introducir.next = cab.previous;
+			introducir.previous = cab;
+		//Para el resto de posiciones
+		}else {
+			cab.next.previous = introducir;
+			introducir.previous = cab;
+			introducir.next = cab.next;
+			cab.next = introducir;
+		}
 	}
 
 	@Override
 	public void addLast(T element) {
-		// TODO Auto-generated method stub
-		
+		DoubleNode<T> introducir = new DoubleNode<T>(element);
+		//Cuando la lista esta vacia
+		if(isEmpty()) {
+			cab.next = introducir;
+			cab.previous = introducir;
+			introducir.previous = cab;
+			introducir.next = cab;
+		}
+		//Insertar en segunda posicion por detras
+		else if(cab.next.next == cab) {
+			cab.previous = introducir;
+			introducir.next = cab;
+			introducir.previous = cab.next;
+			cab.next.next = introducir;
+			
+		//Para el resto de posiciones
+		}else {
+			cab.previous.next = introducir;
+			introducir.previous = cab.previous;
+			introducir.next = cab;
+			cab.previous = introducir;
+		}
 	}
 
 	@Override
 	public void addAtPos(T element, int p) {
-		// TODO Auto-generated method stub
+		DoubleNode<T> aux = cab;
+		DoubleNode<T> introducir = new DoubleNode<T>(element);
+		
+		//introduces en la ultima posicion
+		if(size() < p)
+			addLast(element);
+		//Introduces en la primera posicion
+		else if(p == 1)
+			addFirst(element);
+		else {
+			//Introduces en una posicion intermedia
+			for(int i = 0; i <= p; i++) {
+				if(i == p) {
+					aux.previous.next = introducir;
+					introducir.previous =aux.previous;
+					aux.previous = introducir;
+					introducir.next = aux;
+				}else
+					aux = aux.next;
+			}
+		}
 		
 	}
 
@@ -283,11 +348,14 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 			rx.append("[");
 			DoubleNode<T> i = cab.next;
 			while (i != cab) {
+				//System.out.println("yee"+i.content);
 				rx.append(i.content);
 				rx.append(", ");
 				i = i.next;
 			}
+			//System.out.println(rx);
 			rx.delete(rx.length() - 2, rx.length());
+			//System.out.print(rx);
 			rx.append("]");
 			
 			return rx.toString();
@@ -299,7 +367,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	
 
 	///////////////////////////////////////////
-	  // métodos que devuelve iteradores
+	  // mÃ©todos que devuelve iteradores
 	 ///////////////////////////////////////
 	@Override
 	public Iterator<T> oddAndEvenIterator() {
