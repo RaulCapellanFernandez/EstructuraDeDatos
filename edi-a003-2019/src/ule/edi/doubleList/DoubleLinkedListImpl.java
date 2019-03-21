@@ -1,7 +1,11 @@
 package ule.edi.doubleList;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import javax.imageio.IIOException;
+import javax.sound.midi.Soundbank;
 
 public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	/**
@@ -37,7 +41,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	 * Apunta al nodo cabecera; siempre habrÃ¡ un nodo vacÃ­o (sin elemento) que actua de cabecera
 	 *  OJO!!! ESTE NODO CABECERA DEBERÃ� CREARSE EN CADA CONSTRUCTOR DE LA LISTA
 	 */
-	private DoubleNode<T> cab = new DoubleNode<T>(null);
+	private DoubleNode<T> cab;
 	
 	
 	
@@ -247,7 +251,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	}
 
 	@Override
-	public void addAtPos(T element, int p) {
+	public void addAtPos(T element, int p) {//hacerlo con size
 		DoubleNode<T> aux = cab;
 		DoubleNode<T> introducir = new DoubleNode<T>(element);
 		
@@ -274,49 +278,115 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 
 	@Override
 	public void addNTimes(T element, int n) {
-		// TODO Auto-generated method stub
+		for(int i = 0; i < n; i++) {
+			addLast(element);
+		}
 		
 	}
 
 	@Override
-	public T getElem(int p) {
-		// TODO Auto-generated method stub
-		return null;
+	public T getElem(int p) {//hacerlo con size
+		DoubleNode<T> aux = cab;
+		
+		for(int i = 0; i <= size(); i++) {
+			if(i == p)
+				return aux.content;
+			aux = aux.next;
+		}
+		
+		throw new IndexOutOfBoundsException();
 	}
 
 	@Override
-	public void setElem(T elem, int p) {
-		// TODO Auto-generated method stub
+	public void setElem(T elem, int p) {//hacerlo con size
+		DoubleNode<T> aux = cab;
+		
+		if(p <= 0 || p > size())
+			throw new IndexOutOfBoundsException();
+		
+		for(int i = 0; i <= p; i++) {
+			if(i == p)
+				aux.content = elem;
+			aux = aux.next;
+		}
 		
 	}
 
 	@Override
 	public int indexOf(T elem) {
-		// TODO Auto-generated method stub
-		return 0;
+		DoubleNode<T> aux = cab;
+		
+		for(int i = 0; i <= size(); i++) {
+			if(aux.content == elem)
+				return i;
+			aux = aux.next;
+		}
+		throw new NoSuchElementException();
 	}
 
 	@Override
 	public int indexOf(T elem, int p) {
-		// TODO Auto-generated method stub
-		return 0;
+		DoubleNode<T> aux = cab;
+		
+		if(p <= 0 || p > size())
+			throw new IndexOutOfBoundsException();
+		
+		for(int i = 0; i <= size(); i++) {
+			if(aux.content == elem && i == p)
+				return i;
+			aux = aux.next;
+		}
+		throw new NoSuchElementException();
 	}
 
 	@Override
 	public T removeFirst(T elem) throws EmptyCollectionException {
-		// TODO Auto-generated method stub
-		return null;
+		DoubleNode<T> aux = cab;
+		
+		if(size() == 0)
+			throw new EmptyCollectionException("");
+		
+		for(int i = 0; i <= size(); i++) {
+			if(aux.content == elem) {
+				aux.previous.next = aux.next;
+				aux.next.previous = aux.previous;
+				return elem;
+			}
+			aux = aux.next;
+		}
+		throw new NoSuchElementException();
 	}
 
 	@Override
 	public T removeAll(T elem) throws EmptyCollectionException {
-		// TODO Auto-generated method stub
-		return null;
+		DoubleNode<T> aux = cab;
+		boolean borrado = false;
+		
+		if(size() == 0)
+			throw new EmptyCollectionException("");
+		
+		for(int i = 0; i <= size(); i++) {
+			if(aux.content == elem) {
+				aux.previous.next = aux.next;
+				aux.next.previous = aux.previous;
+				borrado = true;
+				i--;
+			}
+			aux = aux.next;
+		}
+		if(borrado)
+			return elem;
+		throw new NoSuchElementException();
 	}
 	@Override
-	public T removeLast() {
-		// TODO Auto-generated method stub
-		return null;
+	public T removeLast() throws EmptyCollectionException {
+		if(size() == 0)
+			throw new EmptyCollectionException("");
+		
+		T borrado = cab.previous.content;
+		cab.previous.previous.next = cab;
+		cab.previous = cab.previous.previous;
+		return borrado;
 	}
 	
 	
@@ -324,14 +394,26 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 
 	@Override
 	public void reverse() {
-		// TODO Auto-generated method stub
+		ArrayList<T> elementosLista = new ArrayList<T>();
+		DoubleNode<T> aux = cab;
+		aux = aux.next;
+		int j = 0;
+		while(cab != aux) {
+			elementosLista.add(aux.content);
+			aux = aux.next;
+		}
+		cab.next = cab;
+		cab.previous = cab;
 		
+		for(int i= 0; i < elementosLista.size(); i++){
+			addFirst(elementosLista.get(i));
+		}
 	}
 
 	@Override
 	public int isSubList(DoubleLinkedList<T> part) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = -1;
+		return result;
 	}
 
 	@Override
