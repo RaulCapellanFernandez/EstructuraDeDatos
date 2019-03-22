@@ -417,13 +417,38 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 
 	@Override
 	public int isSubList(DoubleLinkedList<T> part) {
-		Iterator<T> iteradorPart = part.iterator();
-		return 0;
+		DoubleNode<T> aux = cab.next;
+		Iterator<T> iterador = part.iterator();
+		int inicio = 0;
+		boolean ini = false;
+		
+		return -1;
 	}
 
 	@Override
 	public void interlace(DoubleLinkedList<T> other) {
-		// TODO Auto-generated method stub
+		DoubleNode<T> aux = cab.next;
+		Iterator<T> iterador = other.iterator();
+		ArrayList<T> elementosLista = new ArrayList<T>();
+		boolean introducir = false;
+		
+		while(!introducir) {
+			if(cab != aux){
+				elementosLista.add(aux.content);
+				aux = aux.next;
+			}
+			if(iterador.hasNext()) {
+				elementosLista.add(iterador.next());
+			}
+			if(cab == aux && !iterador.hasNext())
+				introducir = true;
+		}
+		cab.next = cab;
+		cab.previous = cab;
+		
+		for(int i = elementosLista.size()-1; i >= 0; i--) {
+			addFirst(elementosLista.get(i));
+		}
 		
 	}	
 	

@@ -11,6 +11,7 @@ import org.junit.*;
 public class DoubleLinkedListImplTests {
 
 	private DoubleLinkedListImpl<String> ls;
+	private DoubleLinkedListImpl<String> li;
 	private DoubleLinkedListImpl<String> lSABC;
 	private DoubleLinkedListImpl<String> lSABCDE;
 
@@ -18,6 +19,7 @@ public class DoubleLinkedListImplTests {
 	@Before
 	public void setup() {
 		this.ls = new DoubleLinkedListImpl<String>();
+		this.li = new DoubleLinkedListImpl<String>();
 	    //this.lSABC=new DoubleLinkedListImpl<String>("A", "B", "C");
 	    //this.lSABCDE=new DoubleLinkedListImpl<String>("A", "B", "C", "D", "E");
 	}
@@ -331,6 +333,37 @@ public class DoubleLinkedListImplTests {
 		Assert.assertEquals(false, iteratorF.hasNext());
 		Assert.assertEquals(false, iteratorF.hasNext());
 		Assert.assertEquals("4", iteratorF.next());
+		
+	}
+	@Test
+	public void testInterlace() {
+		ls.interlace(li);
+		Assert.assertEquals("[]", ls.toString());
+		
+		ls.addFirst("1");
+		ls.addFirst("1");
+		ls.addFirst("1");
+		ls.addFirst("1");
+		ls.addFirst("1");
+		ls.addFirst("1");
+		ls.addFirst("1");
+		ls.addFirst("1");
+		ls.addFirst("1");
+		ls.addFirst("1");
+		Assert.assertEquals("[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]", ls.toString());
+		
+		li.addFirst("2");
+		li.addFirst("2");
+		li.addFirst("2");
+		li.addFirst("2");
+		li.addFirst("2");
+		li.addFirst("2");
+		li.addFirst("2");
+		Assert.assertEquals("[2, 2, 2, 2, 2, 2, 2]", li.toString());
+		
+		
+		ls.interlace(li);
+		Assert.assertEquals("[1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 1, 1]", ls.toString());
 		
 	}
 	/*@Test
