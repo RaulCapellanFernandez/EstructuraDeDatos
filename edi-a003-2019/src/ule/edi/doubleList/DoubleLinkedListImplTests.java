@@ -310,6 +310,29 @@ public class DoubleLinkedListImplTests {
 		ls.reverse();
 		Assert.assertEquals("[4, 2, 3, 4, 5, 1, 2]", ls.toString());
 	}
+	@Test
+	public void testForeward() {
+		Iterator<String> iteratorE = ls.iterator();
+		Assert.assertEquals(false, iteratorE.hasNext());
+		
+		ls.addFirst("4");
+		ls.addFirst("2");
+		ls.addFirst("3");
+		Iterator<String> iteratorF = ls.iterator();
+		Assert.assertEquals(true, iteratorF.hasNext());
+		Assert.assertEquals(true, iteratorF.hasNext());
+		Assert.assertEquals(true, iteratorF.hasNext());
+		Assert.assertEquals("3", iteratorF.next());
+		Assert.assertEquals(true, iteratorF.hasNext());
+		Assert.assertEquals("2", iteratorF.next());
+		Assert.assertEquals(true, iteratorF.hasNext());
+		Assert.assertEquals("4", iteratorF.next());
+		Assert.assertEquals(false, iteratorF.hasNext());
+		Assert.assertEquals(false, iteratorF.hasNext());
+		Assert.assertEquals(false, iteratorF.hasNext());
+		Assert.assertEquals("4", iteratorF.next());
+		
+	}
 	/*@Test
 	public void testToStringVacio(){
 		Assert.assertEquals(lS.toString(),"[]");		

@@ -95,20 +95,25 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	
 	private class ForwardIterator implements Iterator<T> {
 
-		private DoubleNode<T> at ;
+		private DoubleNode<T> at = cab ;
 		
 		@Override
 		public boolean hasNext() {
-			return false;
-			// TODO Auto-generated method stub
 			
+			if(at.next == cab)
+				return false;
+			
+			return true;
 		}
 
 		@Override
 		public T next() {
-			return null;
-			// TODO Auto-generated method stub
 			
+			if(hasNext())
+				at = at.next;
+			
+			return at.content;
+
 		}
 		
 		@Override
@@ -172,7 +177,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 			throw new UnsupportedOperationException();
 		}
 	};
-	
+
 		
 	
 	
@@ -412,8 +417,8 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 
 	@Override
 	public int isSubList(DoubleLinkedList<T> part) {
-		int result = -1;
-		return result;
+		Iterator<T> iteradorPart = part.iterator();
+		return 0;
 	}
 
 	@Override
