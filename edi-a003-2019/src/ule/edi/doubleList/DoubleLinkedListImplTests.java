@@ -12,6 +12,7 @@ public class DoubleLinkedListImplTests {
 
 	private DoubleLinkedListImpl<String> ls;
 	private DoubleLinkedListImpl<String> li;
+	private DoubleLinkedListImpl<String> li1;
 	private DoubleLinkedListImpl<String> lSABC;
 	private DoubleLinkedListImpl<String> lSABCDE;
 
@@ -20,6 +21,7 @@ public class DoubleLinkedListImplTests {
 	public void setup() {
 		this.ls = new DoubleLinkedListImpl<String>();
 		this.li = new DoubleLinkedListImpl<String>();
+		this.li1 = new DoubleLinkedListImpl<String>();
 	    //this.lSABC=new DoubleLinkedListImpl<String>("A", "B", "C");
 	    //this.lSABCDE=new DoubleLinkedListImpl<String>("A", "B", "C", "D", "E");
 	}
@@ -365,6 +367,33 @@ public class DoubleLinkedListImplTests {
 		ls.interlace(li);
 		Assert.assertEquals("[1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 1, 1]", ls.toString());
 		
+	}
+	@Test
+	public void testSubList() {
+		
+		ls.addFirst("7");
+		ls.addFirst("6");
+		ls.addFirst("5");
+		ls.addFirst("4");
+		ls.addFirst("3");
+		ls.addFirst("2");
+		ls.addFirst("1");
+		
+		li.addFirst("7");
+		li.addFirst("5");
+		li.addFirst("4");
+		li.addFirst("2");
+		
+		Assert.assertEquals(-1, ls.isSubList(li));
+		
+		Assert.assertEquals(1, ls.isSubList(li1));
+		
+		li1.addFirst("7");
+		li1.addFirst("6");
+		li1.addFirst("5");
+		li1.addFirst("4");
+		
+		Assert.assertEquals(4, ls.isSubList(li1));
 	}
 	/*@Test
 	public void testToStringVacio(){
