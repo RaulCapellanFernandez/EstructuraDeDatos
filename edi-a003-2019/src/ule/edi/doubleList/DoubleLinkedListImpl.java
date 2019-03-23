@@ -535,7 +535,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	 ///////////////////////////////////////
 	@Override
 	public Iterator<T> oddAndEvenIterator() {
-		return null;
+		return new OddAndEvenIterator();
 		// TODO Auto-generated method stub
 		
 		
