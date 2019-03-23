@@ -73,8 +73,15 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	 * @param elements
 	 */
 	public DoubleLinkedListImpl(T ... elements) {
-		//TODO
-	
+		ArrayList<T> elementosLista = new ArrayList<T>();
+		
+		cab = new DoubleNode<T>(null);	
+		cab.next = cab;
+		cab.previous = cab;
+		
+		for(int i = 0; i < elements.length; i++) {
+			addLast(elements[i]);
+		}
 	}
 	
 	/**
@@ -111,7 +118,8 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 			
 			if(hasNext())
 				at = at.next;
-			
+			else
+				throw new NoSuchElementException();
 			return at.content;
 
 		}
@@ -124,21 +132,27 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	};
 	
 	
-	private class reverseIterator implements Iterator<T> {
+	private class ReverseIterator implements Iterator<T> {
 
-		private DoubleNode<T> at ;
+		private DoubleNode<T> at = cab;
 		
 		@Override
 		public boolean hasNext() {
-			return false;
-			// TODO Auto-generated method stub
+			if(at.previous == cab)
+				return false;
+			
+			return true;
 			
 		}
 
 		@Override
 		public T next() {
-			return null;
-			// TODO Auto-generated method stub
+			if(hasNext())
+				at = at.previous;
+			else
+				throw new NoSuchElementException();
+			
+			return at.content;
 			
 		}
 		
@@ -529,7 +543,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 		@Override
 		public Iterator<T> reverseIterator() {
 			// TODO Auto-generated method stub
-			return null;
+			return new ReverseIterator();
 		}
 
 		
