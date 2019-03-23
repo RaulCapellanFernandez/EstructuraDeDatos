@@ -489,4 +489,22 @@ public class DoubleLinkedListImplTests {
 		Assert.assertFalse(i.hasNext());
 		i.next();
 	}
+	@Test(expected = UnsupportedOperationException.class)
+	public void testReverseIteratorException() {
+		Iterator<String> i = lS.reverseIterator();
+		i.remove();
+	}
+	@Test(expected = UnsupportedOperationException.class)
+	public void testForewardIteratorException() {
+		Iterator<String> i = lS.iterator();
+		i.remove();
+	}
+	@Test(expected = UnsupportedOperationException.class)
+	public void testOddIteratorExceptionException() {
+		Iterator<String> i = lS.oddAndEvenIterator();
+		i.remove();
+	}
+	
+	
+	
 }
