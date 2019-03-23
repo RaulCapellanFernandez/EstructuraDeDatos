@@ -91,7 +91,14 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	 * contenidos.
 	 */
 	public DoubleLinkedListImpl(DoubleLinkedList<T> other) {
-		//TODO
+		Iterator<T> iterador = other.iterator();
+		
+		cab = new DoubleNode<T>(null);	
+		cab.next = cab;
+		cab.previous = cab;
+		
+		while(iterador.hasNext()) 
+			addLast( iterador.next());
 	}
 	
 

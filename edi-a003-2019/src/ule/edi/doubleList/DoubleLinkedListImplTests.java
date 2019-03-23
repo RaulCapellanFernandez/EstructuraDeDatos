@@ -439,7 +439,6 @@ public class DoubleLinkedListImplTests {
 	@Test
 	public void testConstructorConLista(){
 		DoubleLinkedListImpl<String> nueva= new DoubleLinkedListImpl<String>(lSABCDE);
-		System.out.println(nueva.toString());
 		Assert.assertEquals("[A, B, C, D, E]", nueva.toString());
 	}
 	
