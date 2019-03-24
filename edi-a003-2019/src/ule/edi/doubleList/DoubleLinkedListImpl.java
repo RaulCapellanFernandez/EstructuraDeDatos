@@ -186,23 +186,17 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 			if(par) {
 				if(at.next != cab && at.next.next != cab)
 					return true;
-				else if(at.next == cab) {
-					if(at.next.next != cab)
+				else if((at.next.next == cab &&at.next.next.next != cab) ||(at.next == cab) && at.next.next != cab) 
 						par = false;
-				}else if(at.next.next == cab) {
-					if(at.next.next.next != cab)
-						par = false;
-				}
 			}
+			
 			if(!par) {
 				if(at.next != cab && at.next.next != cab)
 					return true;
 				if(primero) {
 					introducirPrimero = true;
 					primero = false;
-					if(at.next == cab && at.next.next != cab)
-						return true;
-					if(at.next.next == cab && at.next.next.next != cab)
+					if((at.next == cab && at.next.next != cab) || (at.next.next == cab && at.next.next.next != cab))
 						return true;
 				}
 			}

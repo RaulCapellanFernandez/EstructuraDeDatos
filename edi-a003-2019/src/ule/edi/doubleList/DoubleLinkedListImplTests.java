@@ -464,7 +464,40 @@ public class DoubleLinkedListImplTests {
 		Assert.assertFalse(i.hasNext());
 		i.next();
 	}
-	
+	@Test
+	public void testOddAndEvenItMIO1() {
+		lS = new DoubleLinkedListImpl<>("A", "B", "C", "D", "E");
+		Iterator<String> i = lS.oddAndEvenIterator();
+		Assert.assertTrue(i.hasNext());
+		Assert.assertEquals("B", i.next());
+		Assert.assertTrue(i.hasNext());
+		Assert.assertEquals("D", i.next());
+		Assert.assertTrue(i.hasNext());
+		Assert.assertEquals("A", i.next());
+		Assert.assertTrue(i.hasNext());
+		Assert.assertEquals("C", i.next());
+		Assert.assertTrue(i.hasNext());
+		Assert.assertEquals("E", i.next());
+		Assert.assertFalse(i.hasNext());
+	}
+	@Test
+	public void testOddAndEvenItMIO() {
+		lS = new DoubleLinkedListImpl<>("A", "B", "C", "D", "E", "F");
+		Iterator<String> i = lS.oddAndEvenIterator();
+		Assert.assertTrue(i.hasNext());
+		Assert.assertEquals("B", i.next());
+		Assert.assertTrue(i.hasNext());
+		Assert.assertEquals("D", i.next());
+		Assert.assertTrue(i.hasNext());
+		Assert.assertEquals("F", i.next());
+		Assert.assertTrue(i.hasNext());
+		Assert.assertEquals("A", i.next());
+		Assert.assertTrue(i.hasNext());
+		Assert.assertEquals("C", i.next());
+		Assert.assertTrue(i.hasNext());
+		Assert.assertEquals("E", i.next());
+		Assert.assertFalse(i.hasNext());
+	}
 	@Test
 	public void testOddAndEvenIt() {
 		lS = new DoubleLinkedListImpl<>("A", "B", "C", "D", "E");
