@@ -171,7 +171,10 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	};
 
 		private class OddAndEvenIterator implements Iterator<T> {
-
+			private DoubleNode<T> at = cab;
+			boolean primero = true;
+			boolean introducirPrimero = false;
+			boolean par = true;
 		// Definir los atributos necesarios para implementar el iterador
 		
 		public OddAndEvenIterator(){
@@ -180,16 +183,48 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 		
 		@Override
 		public boolean hasNext() {
-			return false;
-			// TODO Auto-generated method stub
-			
+			if(par) {
+				if(at.next != cab && at.next.next != cab)
+					return true;
+				else if(at.next == cab) {
+					if(at.next.next != cab)
+						par = false;
+				}else if(at.next.next == cab) {
+					if(at.next.next.next != cab)
+						par = false;
+				}
+			}
+			if(!par) {
+				if(at.next != cab && at.next.next != cab)
+					return true;
+				if(primero) {
+					introducirPrimero = true;
+					primero = false;
+					if(at.next == cab && at.next.next != cab)
+						return true;
+					if(at.next.next == cab && at.next.next.next != cab)
+						return true;
+				}
+			}
+				return false;
 		}
 
 		@Override
 		public T next() {
-			return null;
-			// TODO Auto-generated method stub
-			
+			if(introducirPrimero) {
+				introducirPrimero = false;
+				at = cab;
+				if(at.next != cab) {
+					at = at.next;
+					return at.content;
+				}
+			}
+				
+			if(hasNext()) {
+				at = at.next.next;
+				return at.content;
+			}
+			throw new NoSuchElementException();
 		}
 		
 		@Override
