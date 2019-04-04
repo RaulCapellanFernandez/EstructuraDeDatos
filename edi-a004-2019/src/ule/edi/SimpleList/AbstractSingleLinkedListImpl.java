@@ -47,6 +47,7 @@ public abstract class AbstractSingleLinkedListImpl<T> implements SingleLinkedLis
 	 *       
 	 * @param element a insertar
 	 * @param pos posicion en la que se insertará el elemento, desplazando los siguientes
+	 * @throw IllegalArgumentException si p<=0
 	 */
 	public abstract void addAtPos(T element, int p);
 	
@@ -58,6 +59,7 @@ public abstract class AbstractSingleLinkedListImpl<T> implements SingleLinkedLis
 	 *       
 	 * @param element a insertar
 	 * @param p posicion en la que se insertará el elemento, desplazando los siguientes
+	 * @throw IllegalArgumentException si N<0
 	 */
 	public abstract void addNTimes(T element, int n);
 
@@ -67,6 +69,7 @@ public abstract class AbstractSingleLinkedListImpl<T> implements SingleLinkedLis
 	 *    Implementar de forma RECURSIVA
 	 *  
 	 * Indica la posición donde se encuentra la primera aparición de elem desde el principio de la lista (las posiciones empiezan en 1). 
+	 * Si n es menor que 1, no hace nada
 	 * Dispara la excepción NoSuchElementException si no se encuentra el elemento en la lista.
 	 *       
 	 * @param elem  el elemento a buscar 
@@ -116,6 +119,27 @@ public abstract class AbstractSingleLinkedListImpl<T> implements SingleLinkedLis
 	
 	
 	
+	
+	/**
+	 *   
+	 * 	  Implementar de forma RECURSIVA
+	 *  
+	 * Indica a partir de qué posición se encuentra la sublista pasada como parámetro en la lista actual o -1 si no se encuentra.
+	 * Si part es vacía devuelve 1
+	 * 
+	 * Ejemplos:
+	 * 
+	 *  [A, B, A, B, C], con part=[B, A, X], devolvería -1 
+	 *  [A, B, A, B, C], con part=[B, A], devolvería 2 
+	 *
+	 *  [A, B, A, B], con part=[A, B], devolvería 1 
+	 *  
+	 *  [A, B, A, B, C, X, A], con part=[B, C, X], devolvería 4
+	 *    
+	 * @param part lista a comprobar si es sublista de la actual
+	 * @return posición a partir de la que se encuentra la sublista en la lista actual
+	 */
+	public abstract int isSubList(AbstractSingleLinkedListImpl<T> part) ;
 	//	estructura de datos y métodos ya implementados
 
 	static class Node<G> {
@@ -153,6 +177,7 @@ public abstract class AbstractSingleLinkedListImpl<T> implements SingleLinkedLis
 		}
 	}
 
+	
 	
 
 }

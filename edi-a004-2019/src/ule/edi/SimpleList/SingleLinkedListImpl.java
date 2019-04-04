@@ -4,8 +4,16 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+
+
 public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 
+	public SingleLinkedListImpl(T ... elements) {
+		
+		// IMPLEMENTAR DE FORMA RECURSIVA 
+		
+    }
+		
 	@Override
 	public void addLast(T element) {
 		// TODO Auto-generated method stub
@@ -72,6 +80,12 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 	public AbstractSingleLinkedListImpl<T> reverse() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int isSubList(AbstractSingleLinkedListImpl<T> part) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	
