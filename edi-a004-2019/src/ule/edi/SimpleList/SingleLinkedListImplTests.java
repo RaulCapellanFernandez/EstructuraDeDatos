@@ -17,18 +17,19 @@ public class SingleLinkedListImplTests {
 
 	@Before
 	public void setUp() {
-		this.lS = new SingleLinkedListImpl<String>();
+		//this.lS = new SingleLinkedListImpl<String>();
 		
 		
 		this.lSABC = new SingleLinkedListImpl<String>("A", "B", "C");
+		System.out.println(lSABC.toString());
 	}
-	
+
    @Test
    public void constructorElemens(){
-	   lS=new SingleLinkedListImpl<String>("A", "B", "C", "D");
-	   Assert.assertEquals("[A, B, C, D]", lS.toString());
+	   //lS=new SingleLinkedListImpl<String>("A", "B", "C", "D");
+	   Assert.assertEquals("[A, B, C, D]", lSABC.toString());
    }
-
+/*
    @Test
    public void addAtPos(){
 	   
@@ -76,6 +77,6 @@ public class SingleLinkedListImplTests {
 			Assert.assertEquals(1, lS.isSubList(lSABC));	
 		}
 	 
-   
+   */
 
 }

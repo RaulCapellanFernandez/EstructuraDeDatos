@@ -7,16 +7,30 @@ import java.util.NoSuchElementException;
 
 
 public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
-
+	Node<T> first;
+	
 	public SingleLinkedListImpl(T ... elements) {
-		
-		// IMPLEMENTAR DE FORMA RECURSIVA 
+		int longitud = elements.length;
+		first = new Node<T>(elements[0]);
+	
+		singleLinkedListImplRec(first, elements, longitud, 1);
 		
     }
 		
+	private void singleLinkedListImplRec(Node<T> head,T[] elementos, int longitud, int contador) {
+		System.out.println("Contador"+ contador+" Longitud"+ longitud);
+		
+		if(longitud != contador) {
+			Node<T> intro = new Node<T>(elementos[contador]);
+			head.next = intro; 
+			System.out.println("Head: "+head.content);
+			System.out.println("Head: "+head.next.content);
+			singleLinkedListImplRec(head.next, elementos, longitud, ++contador);
+		}
+	}
+
 	@Override
 	public void addLast(T element) {
-		// TODO Auto-generated method stub
 		
 	}
 
