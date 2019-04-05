@@ -164,20 +164,51 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 
 	@Override
 	public T removeLast(T elem) throws EmptyCollectionException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+
 	@Override
 	public AbstractSingleLinkedListImpl<T> reverse() {
-		// TODO Auto-generated method stub
-		return null;
+		SingleLinkedListImpl<T> listaReverse = new SingleLinkedListImpl<T>();
+		listaReverse = reverseRec(header, listaReverse);
+		return listaReverse;
+	}
+
+	private SingleLinkedListImpl<T> reverseRec(Node<T> head, SingleLinkedListImpl<T> listaReverse) {
+		if(head != null) {
+			listaReverse.addFirst(head.content);
+			return reverseRec(head.next, listaReverse);
+		}
+			return listaReverse;
 	}
 
 	@Override
 	public int isSubList(AbstractSingleLinkedListImpl<T> part) {
-		// TODO Auto-generated method stub
-		return 0;
+		 return isSubListRec(header, part, 0);
+	}
+
+	private int isSubListRec(Node<T> head, AbstractSingleLinkedListImpl<T> headPart, int pos) {
+		if(head == null || headPart == null)
+			return -1;
+		if(head.content.equals(headPart.header.content)) {
+			boolean sol = isSubListRecRec(head, headPart.header);
+			if(sol)
+				return pos;
+			else
+				isSubListRec(head.next, headPart, ++pos);
+		}
+		return -1;
+		
+	}
+
+	private boolean isSubListRecRec(Node<T> head1, Node<T> headerPart1) {
+		if(headerPart1 == null)
+			return true;
+		else
+			if(head1.content.equals(headerPart1.content))
+				isSubListRecRec(head1.next, headerPart1.next);
+		return false;
 	}
 
 	

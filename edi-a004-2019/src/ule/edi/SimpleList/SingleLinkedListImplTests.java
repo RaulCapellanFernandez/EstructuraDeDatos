@@ -89,11 +89,21 @@ public class SingleLinkedListImplTests {
 	   Assert.assertEquals("A", lSABC.removeLast());
 	   Assert.assertEquals("[]", lSABC.toString());
 	   
+   }/*
+   @Test
+   public void removeLastElemTest() throws EmptyCollectionException {
+	   lSABC.addLast("B");
+	   lSABC.addLast("B");
+	   lSABC.removeLast("A");
+	  Assert.assertEquals("[B, C, B, B]", lSABC.toString());
+   }*/
+   @Test
+   public void reverse() throws EmptyCollectionException {
+	   Assert.assertEquals("[C, B, A]", lSABC.reverse().toString());
+	   Assert.assertEquals("[]", lS.reverse().toString());
    }
-
-
    
-
+/*
    @Test
    public void addAtPos(){
 	   
@@ -140,5 +150,5 @@ public class SingleLinkedListImplTests {
 			lS = new SingleLinkedListImpl<String>("A", "B", "C");
 			Assert.assertEquals(1, lS.isSubList(lSABC));	
 		}
-
+*/
 }
