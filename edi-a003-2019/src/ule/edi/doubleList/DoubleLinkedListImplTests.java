@@ -7,6 +7,8 @@ import java.util.NoSuchElementException;
 
 import org.junit.*;
 
+import ule.edi.model.Person;
+
 
 public class DoubleLinkedListImplTests {
 
@@ -15,6 +17,7 @@ public class DoubleLinkedListImplTests {
 	private DoubleLinkedListImpl<String> li1;
 	private DoubleLinkedListImpl<String> lSABC;
 	private DoubleLinkedListImpl<String> lSABCDE;
+	private DoubleLinkedListImpl<Person> listaPersona;
 
 
 	@Before
@@ -24,6 +27,7 @@ public class DoubleLinkedListImplTests {
 		this.li1 = new DoubleLinkedListImpl<String>();
 	    this.lSABC=new DoubleLinkedListImpl<String>("A", "B", "C");
 	    this.lSABCDE=new DoubleLinkedListImpl<String>("A", "B", "C", "D", "E");
+	    this.listaPersona = new DoubleLinkedListImpl<Person>();
 	}
 	
 	@Test
@@ -537,7 +541,20 @@ public class DoubleLinkedListImplTests {
 		Iterator<String> i = lS.oddAndEvenIterator();
 		i.remove();
 	}
-	
+	@Test
+	public void testPersona() {
+		Person persona1 = new Person("Raul","71471266",22);
+		Person persona2 = new Person("Henar","71471266",24);
+		
+		listaPersona.addFirst(persona1);
+		listaPersona.addAtPos(persona2, 2);
+		
+		System.out.println(listaPersona.toString());
+		Assert.assertEquals("[{ NIF: 71471266  Name : Raul, Age:22}, { NIF: 71471266  Name : Henar, Age:24}]", listaPersona.toString());
+		
+		Assert.assertEquals(1, listaPersona.indexOf(persona1));
+		
+	}
 	
 	
 }

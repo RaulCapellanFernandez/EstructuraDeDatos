@@ -114,7 +114,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 		@Override
 		public boolean hasNext() {
 			
-			if(at.next == cab)
+			if(at.next.equals(cab))
 				return false;
 			
 			return true;
@@ -145,7 +145,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 		
 		@Override
 		public boolean hasNext() {
-			if(at.previous == cab)
+			if(at.previous.equals(cab))
 				return false;
 			
 			return true;
@@ -184,19 +184,19 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 		@Override
 		public boolean hasNext() {
 			if(par) {
-				if(at.next != cab && at.next.next != cab)
+				if(!at.next.equals(cab) && !at.next.next.equals(cab))
 					return true;
-				else if((at.next.next == cab &&at.next.next.next != cab) ||(at.next == cab) && at.next.next != cab) 
+				else if((at.next.next.equals(cab) && !at.next.next.next.equals(cab)) ||(at.next.equals(cab)) && !at.next.next.equals(cab)) 
 						par = false;
 			}
 			
 			if(!par) {
-				if(at.next != cab && at.next.next != cab)
+				if(!at.next.equals(cab) && !at.next.next.equals(cab))
 					return true;
 				if(primero) {
 					introducirPrimero = true;
 					primero = false;
-					if((at.next == cab && at.next.next != cab) || (at.next.next == cab && at.next.next.next != cab))
+					if((at.next.equals(cab) && !at.next.next.equals(cab)) || (at.next.next.equals(cab) && !at.next.next.next.equals(cab)))
 						return true;
 				}
 			}
@@ -208,7 +208,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 			if(introducirPrimero) {
 				introducirPrimero = false;
 				at = cab;
-				if(at.next != cab) {
+				if(!at.next.equals(cab)) {
 					at = at.next;
 					return at.content;
 				}
@@ -236,7 +236,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	
 	@Override
 	public boolean isEmpty() {
-		if(cab.next == cab)
+		if(cab.next.equals(cab))
 			return true;
 		else
 			return false;
@@ -247,7 +247,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	public int size() {
 		DoubleNode<T> cabAux = cab;
 		int tam = 0;
-		while(cabAux.next != cab) {
+		while(!cabAux.next.equals(cab)) {
 			tam++;
 			cabAux = cabAux.next;
 		}
@@ -265,7 +265,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 			introducir.next = cab;
 		}
 		//Insertar en segunda posicion
-		else if(cab.next.next == cab) {
+		else if(cab.next.next.equals(cab)) {
 			cab.next = introducir;
 			cab.previous.previous = introducir;
 			introducir.next = cab.previous;
@@ -290,7 +290,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 			introducir.next = cab;
 		}
 		//Insertar en segunda posicion por detras
-		else if(cab.next.next == cab) {
+		else if(cab.next.next.equals(cab)) {
 			cab.previous = introducir;
 			introducir.next = cab;
 			introducir.previous = cab.next;
@@ -453,7 +453,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 		DoubleNode<T> aux = cab;
 		aux = aux.next;
 		int j = 0;
-		while(cab != aux) {
+		while(!cab.equals(aux)) {
 			elementosLista.add(aux.content);
 			aux = aux.next;
 		}
@@ -477,11 +477,11 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 			return 1;
 			
 		while(!introducir) {
-			if(cab != aux){
+			if(!cab.equals(aux)){
 				elementosLista.add(aux.content);
 				aux = aux.next;
 			}
-			if(cab == aux)
+			if(cab.equals(aux))
 				introducir = true;
 		}
 		
@@ -489,7 +489,7 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 			
 			if(!iterador.hasNext())
 				return inicio;
-			if(elementosLista.get(p) != iterador.next()) {
+			if(!elementosLista.get(p).equals(iterador.next())) {
 				p = 0;
 				inicio++;
 				if(elementosLista.size() == 1)
@@ -514,14 +514,14 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 		boolean introducir = false;
 		
 		while(!introducir) {
-			if(cab != aux){
+			if(!cab.equals(aux)){
 				elementosLista.add(aux.content);
 				aux = aux.next;
 			}
 			if(iterador.hasNext()) {
 				elementosLista.add(iterador.next());
 			}
-			if(cab == aux && !iterador.hasNext())
+			if(cab.equals(aux) && !iterador.hasNext())
 				introducir = true;
 		}
 		cab.next = cab;
@@ -536,11 +536,11 @@ public class DoubleLinkedListImpl<T> implements DoubleLinkedList<T> {
 	@Override
 	public String toString() {
 		
-		if (cab != cab.next) {
+		if (!cab.equals(cab.next)) {
 			StringBuffer rx = new StringBuffer();
 			rx.append("[");
 			DoubleNode<T> i = cab.next;
-			while (i != cab) {
+			while (!i.equals(cab)) {
 				//System.out.println("yee"+i.content);
 				rx.append(i.content);
 				rx.append(", ");
