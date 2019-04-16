@@ -89,14 +89,27 @@ public class SingleLinkedListImplTests {
 	   Assert.assertEquals("A", lSABC.removeLast());
 	   Assert.assertEquals("[]", lSABC.toString());
 	   
-   }/*
+   }
    @Test
    public void removeLastElemTest() throws EmptyCollectionException {
 	   lSABC.addLast("B");
-	   lSABC.addLast("B");
-	   lSABC.removeLast("A");
-	  Assert.assertEquals("[B, C, B, B]", lSABC.toString());
-   }*/
+	   lSABC.addLast("O");
+	   lSABC.addLast("A");
+	   
+	   lS.addFirst("C");
+	   lS.addFirst("A");
+	   lS.addFirst("B");
+	   
+	   System.out.println("0->"+lS.toString());
+	   Assert.assertEquals("A", lS.removeLast("A"));
+	   System.out.println("1->"+lS.toString());
+	   
+	   System.out.println("0->"+lSABC.toString());
+	   Assert.assertEquals("A", lSABC.removeLast("A"));
+	   System.out.println("1->"+lSABC.toString());
+	   Assert.assertEquals("A", lSABC.removeLast("A"));
+	   System.out.println("2->"+lSABC.toString());
+   }
    @Test
    public void reverse() throws EmptyCollectionException {
 	   Assert.assertEquals("[C, B, A]", lSABC.reverse().toString());

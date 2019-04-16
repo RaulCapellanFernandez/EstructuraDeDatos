@@ -164,9 +164,46 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 
 	@Override
 	public T removeLast(T elem) throws EmptyCollectionException {
-		return null;
+		if(header == null)
+			throw new EmptyCollectionException("");
+		int posicion = removeLastRec1(elem, header, 1, 0);
+		System.out.println("Posicion-> "+posicion);
+		return removeLasAtPos(header, posicion, elem, 2);
 	}
 
+	private int removeLastRec1(T elem, Node<T> head, int cont, int pos) {
+		if(cont >= size() && pos == 0)
+			throw new NoSuchElementException();
+		if(head == null)
+			return pos;
+		if(head.content == elem) {
+			pos  = cont;
+			return removeLastRec1(elem, head.next, ++cont, pos);
+		}
+			
+		else
+			return removeLastRec1(elem, head.next, ++cont, pos);
+	}
+	
+	private T removeLasAtPos(Node<T> head, int posicion, T elem, int cont) {
+		if(posicion == 1) {
+			T borrado = head.content;
+			header= header.next;
+			return borrado;
+		}
+		if(posicion == 2) {
+			T borrado = head.next.content;
+			head.next = head.next.next;
+			return borrado;
+		}
+		if(posicion == cont) {
+			T borrado = head.next.content;
+			System.out.println(head.content);
+			head.next = head.next.next;
+			return borrado; 
+		}else
+			return removeLasAtPos(head.next, posicion, elem, ++cont);
+	}
 
 	@Override
 	public AbstractSingleLinkedListImpl<T> reverse() {
@@ -185,31 +222,6 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 
 	@Override
 	public int isSubList(AbstractSingleLinkedListImpl<T> part) {
-		 return isSubListRec(header, part, 0);
+		return 0;
 	}
-
-	private int isSubListRec(Node<T> head, AbstractSingleLinkedListImpl<T> headPart, int pos) {
-		if(head == null || headPart == null)
-			return -1;
-		if(head.content.equals(headPart.header.content)) {
-			boolean sol = isSubListRecRec(head, headPart.header);
-			if(sol)
-				return pos;
-			else
-				isSubListRec(head.next, headPart, ++pos);
-		}
-		return -1;
-		
-	}
-
-	private boolean isSubListRecRec(Node<T> head1, Node<T> headerPart1) {
-		if(headerPart1 == null)
-			return true;
-		else
-			if(head1.content.equals(headerPart1.content))
-				isSubListRecRec(head1.next, headerPart1.next);
-		return false;
-	}
-
-	
 }
