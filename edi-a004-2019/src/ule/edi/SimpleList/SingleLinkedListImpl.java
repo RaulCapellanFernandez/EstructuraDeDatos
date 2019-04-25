@@ -27,7 +27,42 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 			singleLinkedListImplRec(head.next, elementos, longitud, ++contador);
 		}
 	}
+	
+	////////////////////////////
+	///// ITERADORES FOREWARD //
+	////////////////////////////
+	
+	private class ForwardIterator implements Iterator<T> {
 
+		private Node<T> at = header ;
+		
+		@Override
+		public boolean hasNext() {
+			
+			if(at.next.equals(header))
+				return false;
+			
+			return true;
+		}
+
+		@Override
+		public T next() {
+			
+			if(hasNext())
+				at = at.next;
+			else
+				throw new NoSuchElementException();
+			return at.content;
+
+		}
+		
+		@Override
+		public void remove() {
+			// TODO Auto-generated method stub
+			throw new UnsupportedOperationException();
+		}
+	};
+	
 	@Override
 	public void addLast(T element) {
 		Node<T> intro = new Node<T>(element);
@@ -47,8 +82,7 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 
 	@Override
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ForwardIterator();
 	}
 
 	@Override
