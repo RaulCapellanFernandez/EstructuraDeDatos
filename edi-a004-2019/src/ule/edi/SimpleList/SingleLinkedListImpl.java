@@ -39,7 +39,7 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 		@Override
 		public boolean hasNext() {
 			
-			if(at.next.equals(header))
+			if(at.next.equals(null))
 				return false;
 			
 			return true;
@@ -54,12 +54,6 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 				throw new NoSuchElementException();
 			return at.content;
 
-		}
-		
-		@Override
-		public void remove() {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException();
 		}
 	};
 	
