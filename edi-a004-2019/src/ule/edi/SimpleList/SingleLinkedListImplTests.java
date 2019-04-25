@@ -2,6 +2,8 @@ package ule.edi.SimpleList;
 
 
 
+import java.util.Iterator;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +22,7 @@ public class SingleLinkedListImplTests {
 		this.lS = new SingleLinkedListImpl<String>();
 		this.lSABC = new SingleLinkedListImpl<String>("A", "B", "C");
 	}
-
+	/*
    @Test
    public void constructorElemens(){
 	   lS=new SingleLinkedListImpl<String>("A", "B", "C", "D");
@@ -114,6 +116,17 @@ public class SingleLinkedListImplTests {
    public void reverse() throws EmptyCollectionException {
 	   Assert.assertEquals("[C, B, A]", lSABC.reverse().toString());
 	   Assert.assertEquals("[]", lS.reverse().toString());
+   }
+   */
+   @Test
+   public void forwardIteratorTest() {
+	   Iterator<String> iteratorE = lS.iterator();
+	   
+	   //Assert.assertEquals(false, iteratorE.hasNext());
+	   lS.addFirst("P");
+	   lS.addFirst("P");
+	   System.out.println(lS.toString());
+	   Assert.assertEquals(true, iteratorE.hasNext());
    }
    
 /*

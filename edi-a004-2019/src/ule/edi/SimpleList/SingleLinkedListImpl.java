@@ -38,11 +38,17 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 		
 		@Override
 		public boolean hasNext() {
-			
-			if(at.next.equals(null))
+			System.out.println(at.content);
+			at = at.next;
+			if(at == null) {
+				System.out.println("Me cago en todo");
 				return false;
-			
-			return true;
+			}
+			/*else if(at.next.equals(null))
+				return false;
+			*/
+			else
+				return true;
 		}
 
 		@Override
