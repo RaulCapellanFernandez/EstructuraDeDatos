@@ -38,15 +38,10 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 		
 		@Override
 		public boolean hasNext() {
-			System.out.println(at.content);
-			at = at.next;
-			if(at == null) {
-				System.out.println("Me cago en todo");
+			if(header == null)
 				return false;
-			}
-			/*else if(at.next.equals(null))
+			else if(at.next == null)
 				return false;
-			*/
 			else
 				return true;
 		}
@@ -201,7 +196,7 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 		if(header == null)
 			throw new EmptyCollectionException("");
 		int posicion = removeLastRec1(elem, header, 1, 0);
-		System.out.println("Posicion-> "+posicion);
+		
 		return removeLasAtPos(header, posicion, elem, 2);
 	}
 
@@ -210,7 +205,7 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 			throw new NoSuchElementException();
 		if(head == null)
 			return pos;
-		if(head.content == elem) {
+		if(head.content.equals(elem)) {
 			pos  = cont;
 			return removeLastRec1(elem, head.next, ++cont, pos);
 		}
@@ -232,7 +227,7 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 		}
 		if(posicion == cont) {
 			T borrado = head.next.content;
-			System.out.println(head.content);
+			
 			head.next = head.next.next;
 			return borrado; 
 		}else
@@ -256,6 +251,38 @@ public class SingleLinkedListImpl<T> extends AbstractSingleLinkedListImpl<T> {
 
 	@Override
 	public int isSubList(AbstractSingleLinkedListImpl<T> part) {
-		return 0;
+		if(part.isEmpty())
+			return 1;
+		else if(isEmpty())
+			return -1;
+		else { 
+			Node<T> aux = part.header;
+			return 1 + isSubListRec(part, header,aux);
+		}
 	}
+
+	private int isSubListRec(AbstractSingleLinkedListImpl<T> part, Node<T> head, Node<T> aux) {
+		
+		if(head.content.equals(aux.content)) {
+			
+			if(aux.next == null)
+				return 0;
+			if(head.next == null)
+				return -2;
+			else 
+				return isSubListRec(part, head.next, aux.next);
+		}else {
+			
+			if(head.next != null) {
+				header = header.next;
+				head = header;
+				aux = part.header;
+				return 1 + isSubListRec(part, head, aux);
+			}else
+				return -2;
+		}
+	
+	}
+
+	
 }

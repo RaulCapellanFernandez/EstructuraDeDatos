@@ -3,10 +3,13 @@ package ule.edi.SimpleList;
 
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import ule.edi.model.Person;
 
 
 public class SingleLinkedListImplTests {
@@ -15,14 +18,18 @@ public class SingleLinkedListImplTests {
 
 	private SingleLinkedListImpl<String> lS;
 	private SingleLinkedListImpl<String> lSABC;
+	private SingleLinkedListImpl<Person> lSE;
 	
 
 	@Before
 	public void setUp() {
+		Person persona1 = new Person("Benito", "71471266P", 12);
+		//Person persona2 = new Person("Camela", "71471266P", 11);
 		this.lS = new SingleLinkedListImpl<String>();
 		this.lSABC = new SingleLinkedListImpl<String>("A", "B", "C");
+		this.lSE = new SingleLinkedListImpl<Person>(persona1);
 	}
-	/*
+	
    @Test
    public void constructorElemens(){
 	   lS=new SingleLinkedListImpl<String>("A", "B", "C", "D");
@@ -82,6 +89,16 @@ public class SingleLinkedListImplTests {
 	   Assert.assertEquals(2, lSABC.indexOf("B"));
 	   Assert.assertEquals(3, lSABC.indexOf("C"));
    }
+   
+   @Test(expected = NoSuchElementException.class)
+  	public void testIdexOfException() {
+  		lS.indexOf("A");
+  	}
+   
+   @Test
+   public void indexOfTestRec(){
+	   
+   }
    @Test
    public void removeLastTest() throws EmptyCollectionException{
 	   Assert.assertEquals("C", lSABC.removeLast());
@@ -92,6 +109,12 @@ public class SingleLinkedListImplTests {
 	   Assert.assertEquals("[]", lSABC.toString());
 	   
    }
+   
+   @Test(expected = EmptyCollectionException.class)
+ 	public void testRemoveLastException() throws EmptyCollectionException {
+ 		lS.removeLast();
+ 	}
+   
    @Test
    public void removeLastElemTest() throws EmptyCollectionException {
 	   lSABC.addLast("B");
@@ -102,34 +125,48 @@ public class SingleLinkedListImplTests {
 	   lS.addFirst("A");
 	   lS.addFirst("B");
 	   
-	   System.out.println("0->"+lS.toString());
 	   Assert.assertEquals("A", lS.removeLast("A"));
-	   System.out.println("1->"+lS.toString());
-	   
-	   System.out.println("0->"+lSABC.toString());
 	   Assert.assertEquals("A", lSABC.removeLast("A"));
-	   System.out.println("1->"+lSABC.toString());
 	   Assert.assertEquals("A", lSABC.removeLast("A"));
-	   System.out.println("2->"+lSABC.toString());
    }
+   
+   @Test(expected = EmptyCollectionException.class)
+	public void testRemoveLastEmptyException() throws EmptyCollectionException {
+		lS.removeLast("A");
+	}
+   
+   @Test(expected = NoSuchElementException.class)
+	public void testRemoveLastElemenException() throws EmptyCollectionException{
+		lSABC.removeLast("X");
+	}
+   
    @Test
    public void reverse() throws EmptyCollectionException {
 	   Assert.assertEquals("[C, B, A]", lSABC.reverse().toString());
 	   Assert.assertEquals("[]", lS.reverse().toString());
    }
-   */
+   
    @Test
    public void forwardIteratorTest() {
 	   Iterator<String> iteratorE = lS.iterator();
 	   
-	   //Assert.assertEquals(false, iteratorE.hasNext());
-	   lS.addFirst("P");
-	   lS.addFirst("P");
-	   System.out.println(lS.toString());
-	   Assert.assertEquals(true, iteratorE.hasNext());
+	   Iterator<String> iteratorF = lSABC.iterator();
+	   
+	  Assert.assertEquals(false, iteratorE.hasNext());
+	  
+	  Assert.assertEquals(true, iteratorF.hasNext());
+	  Assert.assertEquals("B", iteratorF.next());
+	  Assert.assertEquals(true, iteratorF.hasNext());
+	  Assert.assertEquals("C", iteratorF.next());
+	  Assert.assertEquals(false, iteratorF.hasNext());
    }
    
-/*
+   @Test(expected = NoSuchElementException.class)
+	public void testForewardIteratorException() {
+		Iterator<String> i = lS.iterator();
+		i.next();
+	}
+  
    @Test
    public void addAtPos(){
 	   
@@ -164,17 +201,31 @@ public class SingleLinkedListImplTests {
 			Assert.assertEquals(1, lSABC.isSubList(lS));		
 		}
 		
-		
 		@Test
 		public void subListVarios() {
 			lS = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E");
+			
 			Assert.assertEquals(1, lS.isSubList(lSABC));	
 			lS = new SingleLinkedListImpl<String>("Z", "X", "A", "B", "C", "D", "E");
 			Assert.assertEquals(3, lS.isSubList(lSABC));	
 			lS = new SingleLinkedListImpl<String>("Z", "X", "A", "B", "C");
 			Assert.assertEquals(3, lS.isSubList(lSABC));	
 			lS = new SingleLinkedListImpl<String>("A", "B", "C");
-			Assert.assertEquals(1, lS.isSubList(lSABC));	
+			Assert.assertEquals(1, lS.isSubList(lSABC));
+			
+			lS = new SingleLinkedListImpl<String>("A", "B");
+			Assert.assertEquals(-1, lS.isSubList(lSABC));
+			
+			lS = new SingleLinkedListImpl<String>("A", "X");
+			Assert.assertEquals(-1, lS.isSubList(lSABC));
 		}
-*/
+		
+		@Test
+		public void testPersonVarios() {
+			Person persona2 = new Person("Teresa", "71471266P", 12);
+			Person persona3 = new Person("Benito", "71471266P", 12);
+			lSE.addAtPos(persona2, 2);
+			Assert.assertEquals("[{ NIF: 71471266P  Name : Benito, Age:12}, { NIF: 71471266P  Name : Teresa, Age:12}]", lSE.toString());
+		}
+
 }
