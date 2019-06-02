@@ -387,12 +387,51 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 	 * @param buffer lista con el resultado.
 	 */
 	public void parentChildPairsTagDescend(List<String> buffer) {
-	
-		// TODO Implementar el mÃ©todo
+		List<T> listaElem = new ArrayList<T>();
+		parentChildPairsTagDescendRec(buffer, listaElem, 1);	
 	}
 		
 	
 	
+	private void parentChildPairsTagDescendRec(List<String> buffer, List<T> listaElem, int num) {
+		if(getRightBST() != null) {
+			getRightBST().parentChildPairsTagDescendRec(buffer, listaElem, num);
+			
+			if(getRightBST().content != null) {
+				buffer.add("("+content+", "+getRightBST().content+")");
+				
+				if(!listaElem.contains(getRightBST().content)) {
+					
+					listaElem.add(getRightBST().content);
+					getRightBST().setTag("descend", listaElem.size());
+				}
+				if(!listaElem.contains(content)) {
+					
+					listaElem.add(content);
+					setTag("descend", listaElem.size());
+				}
+			}
+		}
+		if(getLeftBST() != null) {
+			if(getLeftBST().content != null) {
+				buffer.add("("+content+", "+getLeftBST().content+")");
+				
+				if(!listaElem.contains(getLeftBST().content)) {
+					
+					listaElem.add(getLeftBST().content);
+					getLeftBST().setTag("descend", listaElem.size());
+				}
+				if(!listaElem.contains(content)) {
+					
+					listaElem.add(content);
+					setTag("descend", listaElem.size());
+				}
+			}
+			getLeftBST().parentChildPairsTagDescendRec(buffer, listaElem, num);
+		}
+	}
+
+
 	/**
 	 * Importante: Solamente se debe recorrer el Ã¡rbol una vez
 	 * 
@@ -486,10 +525,29 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 
 	 */	
 	public void tagWidth(){
-		//	TODO Implementar mÃ©todo
+		List<Integer> lista = new ArrayList<Integer>();
+		if(content != null)
+			setTag("width" , 1);
+		lista.add(1);
+		tagWidthRec(lista,2);
 	}
 	
 	
+	private void tagWidthRec(List<Integer> lista, int i) {
+		if(getLeftBST().content != null) {
+			lista.add(0);
+			getLeftBST().setTag("width", lista.size());
+		}
+		if(getRightBST().content != null) {
+			lista.add(0);
+			getRightBST().setTag("width", lista.size());
+		}
+		if(getLeftBST().content != null)
+			getLeftBST().tagWidthRec(lista, i);
+		if(getRightBST().content != null)
+			getRightBST().tagWidthRec(lista, i);
+	}
+
 	/**	
 	 * Devuelve un iterador que recorre los elementos del arbol en inorden (de menor a mayor)
 	 * 

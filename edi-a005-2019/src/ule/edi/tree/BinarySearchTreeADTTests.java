@@ -288,6 +288,15 @@ public class BinarySearchTreeADTTests {
 		 lista.add(75);
 		 Assert.assertEquals(false, TPruebas.isPathIn(lista));
 	}
+	@Test
+	public void testTagWidth() {
+		TPruebas.insert(50,30,10,40,80,60);
+		TPruebas.tagWidth();
+		System.out.println(TPruebas.toString());
+		
+		//Lo he hecho como en los apuntes
+		Assert.assertEquals("{50 [(width, 1)], {30 [(width, 2)], {10 [(width, 4)], ∅, ∅}, {40 [(width, 5)], ∅, ∅}}, {80 [(width, 3)], {60 [(width, 6)], ∅, ∅}, ∅}}", TPruebas.toString());
+	}
 	
 	/*
 	 * 
@@ -297,17 +306,16 @@ public class BinarySearchTreeADTTests {
 		TPruebas.insert();
 	}*/
 
-	/*
+	
 		@Test
 		public void testTagDescendTC4() {
 			List<String> lista= new LinkedList<String>();
 			TC3.parentChildPairsTagDescend(lista);
 			Assert.assertEquals(lista.toString(), "[(80, 90), (80, 70), (50, 80), (50, 20), (20, 30), (20, 10)]");
 			TC3.filterTags("descend");
-			Assert.assertEquals("{50 [(descend, 4)], {20 [(descend, 6)], {10 [(descend, 7)], ∅, ∅}, {30 [(descend, 5)], ∅, ∅}}, {80 [(descend, 2)], {70 [(descend, 3)], ∅, ∅}, {90 [(descend, 1)], ∅, ∅}}}", TC3.toString());
+			Assert.assertEquals("{50 [(descend, 4)], {20 [(descend, 5)], {10 [(descend, 7)], ∅, ∅}, {30 [(descend, 6)], ∅, ∅}}, {80 [(descend, 2)], {70 [(descend, 3)], ∅, ∅}, {90 [(descend, 1)], ∅, ∅}}}", TC3.toString());
 			
 		}
-	*/
 	}
 
 
