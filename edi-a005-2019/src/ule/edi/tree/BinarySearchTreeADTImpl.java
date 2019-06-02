@@ -3,6 +3,7 @@ package ule.edi.tree;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -176,7 +177,7 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 		}
 		
 		for(T j: elements) {
-			withdraw(elements);
+			withdraw(j);
 		}
 	}
 
@@ -203,18 +204,10 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 		if (element == null) {
 			throw new IllegalArgumentException("No se aceptan elementos nulos");
 		}
-		System.out.println();
-		System.out.println();
-		System.out.println("El element es:"+ content);
-		System.out.println("L: "+this.getLeftBST().content);
-		System.out.println("R: "+this.getRightBST().content);
 		
 		//Para borrar el nodo raiz
 		
 		if(content.equals(element)) {
-			System.out.println("He encontrado el elemento que buscaba");
-			System.out.println("C->: "+content);
-			System.out.println("E: "+element);
 			
 			if(isLeaf()) {
 				setContent(null);
@@ -226,7 +219,6 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 				Collection<T> listaIntroducir = new ArrayList<T>();
 				T elemenAnt = content;
 				listaIntroducir = recorreGuardaPreOrderRaiz(listaIntroducir, elemenAnt,0);
-				System.out.println(listaIntroducir.size());
 				setContent(null);
 				setRightBST(null);
 				setLeftBST(null);
@@ -238,9 +230,6 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 		
 		//Para borrar la rama izquierda
 		if(this.getLeftBST().content != null && this.getLeftBST().content.equals(element)) {
-			System.out.println("He encontrado el elemento que buscaba");
-			System.out.println("C->I: "+ getLeftBST().content);
-			System.out.println("E: "+element);
 			
 			if(getLeftBST().isLeaf()) {
 				getLeftBST().setContent(null);
@@ -264,10 +253,6 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 		
 		//Para borrar la rama derecha
 		if(this.getRightBST().content != null && this.getRightBST().content.equals(element)) {
-			System.out.println("He encontrado el elemento que buscaba");
-			System.out.println("C: "+ content);
-			System.out.println("C->D: "+ getRightBST().content);
-			System.out.println("E: "+element);
 			
 			if(getRightBST().isLeaf()) {
 				getRightBST().setContent(null);
@@ -289,20 +274,15 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 		}
 		
 		if (this.content.compareTo(element) > 0) {
-			System.out.println("Entra aqui");
-			System.out.println("Va a a la izquierda");
-			System.out.println(getLeftBST().content);
 			this.getLeftBST().withdraw(element);
 		}
 		else if(this.content.compareTo(element) < 0) {
-			System.out.println("Va a a la Derecha");
-			System.out.println(getRightBST().content);
 			this.getRightBST().withdraw(element);
 		}
 	}
 	
 	private Collection<T> recorreGuardaPreOrderIzquierda(Collection<T> listaIntroducir, T elemenAnt, int cont) {
-		System.out.println(content);
+		
 		if(content != null) {
 			if(content.compareTo(elemenAnt) < 0) {
 				cont++;
@@ -315,7 +295,6 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 		if(getRightBST() != null) {
 			getRightBST().recorreGuardaPreOrderIzquierda(listaIntroducir, elemenAnt, cont);
 		}
-		System.out.print(listaIntroducir.toString());
 		
 		return listaIntroducir;
 	}
@@ -334,15 +313,12 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 			getRightBST().recorreGuardaPreOrderDerecha(listaIntroducir, elemenAnt, cont);
 		}
 		listaIntroducir.remove(elemenAnt);
-		System.out.print(listaIntroducir.toString());
 		
 		return listaIntroducir;
 	}
 	
 	private Collection<T> recorreGuardaPreOrderRaiz(Collection<T> listaIntroducir, T elemenAnt, int cont) {
-		System.out.println(content+"  HOLAAAA");
 		if(content != null) {
-			System.out.println(content+"FKLJdhfdskljf");
 			cont++;
 			if(cont > 1) 
 				listaIntroducir.add(content);
@@ -352,8 +328,6 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 		if(getRightBST() != null) {
 			getRightBST().recorreGuardaPreOrderRaiz(listaIntroducir, elemenAnt, cont);
 		}
-		System.out.print(listaIntroducir.toString());
-		
 		return listaIntroducir;
 	}
 
@@ -446,11 +420,55 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 	 * @return  true si los elementos de la lista coinciden con algÃºn camino desde la raiz,  falso si no es asÃ­
 	 */
 	public boolean isPathIn(List<T> path) {
-		//	TODO Implementar mÃ©todo
-		return false;
+		List<Integer> lista = new ArrayList<Integer>();
+		if(path.size() == 0) 
+			return true;
+		else {
+			if(isPathRec(path, 0)) {
+				isPathRecEtiqueta(path, 0);
+				return true;
+			}
+			return isPathRec(path, 0);
+		}
 	}
 
 	
+	private boolean isPathRec(List<T> path, int i) {
+		if(1 == path.size() && !path.get(0).equals(content))
+			return false;
+		
+		if(i == path.size()-1)
+			return true;
+		
+		else if(content != null) {
+			if(content.equals(path.get(i))) {
+				
+				if(getLeftBST().content != null && getLeftBST().content.equals(path.get(i+1))) {
+					return getLeftBST().isPathRec(path, ++i);
+				}else if(getRightBST().content != null && getRightBST().content.equals(path.get(i+1))){
+					return getRightBST().isPathRec(path, ++i);
+				}else {
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	private void isPathRecEtiqueta(List<T> path, int i) {
+		if(path.size() == 1 &&content != null && content.equals(path.get(0)))
+			setTag("Path", 1);
+		else if(content != null) {
+			if(content.equals(path.get(i))) {
+				setTag("Path", i+1);
+				if(getLeftBST().content != null && getLeftBST().content.equals(path.get(i+1))) {
+					getLeftBST().isPathRecEtiqueta(path, ++i);
+				}else if(getRightBST().content != null && getRightBST().content.equals(path.get(i+1))){
+					getRightBST().isPathRecEtiqueta(path, ++i);
+				}
+			}
+		}
+	}
+
 	/**
 	 * 
 	 * Etiqueta cada nodo con su posiciÃ³n en el recorrido en anchura, con la etiqueta "width"

@@ -211,17 +211,82 @@ public class BinarySearchTreeADTTests {
 	
 	@Test
 	public void testWithdrawElementCollection() {
-		TPruebas.insert(3);
-		TPruebas.insert(2);
-		TPruebas.insert(4);
+		Collection<Integer> miColeccion = new ArrayList<Integer>();
+		miColeccion.add(1);
+		miColeccion.add(2);
+		TPruebas.insert(miColeccion);
 		
-		List<Integer> miColeccion = new ArrayList<Integer>();
-		miColeccion.add(3);
-		miColeccion.add(4);
+		Assert.assertEquals("{1, ∅, {2, ∅, ∅}}", TPruebas.toString());
 		
 		TPruebas.withdraw(miColeccion);
 		
 		Assert.assertEquals("∅", TPruebas.toString());
+	}
+	@Test
+	public void testWithdrawElementElements() {
+		Collection<Integer> miColeccion = new ArrayList<Integer>();
+		miColeccion.add(1);
+		miColeccion.add(2);
+		TPruebas.insert(miColeccion);
+		
+		TPruebas.withdraw(1,2);
+		Assert.assertEquals("∅", TPruebas.toString());
+	}
+	
+	@Test
+	public void tesIsPath() {
+		List<Integer> lista = new ArrayList<Integer>();
+		lista.add(50);
+		lista.add(30);
+		lista.add(10);
+		TPruebas.insert(50,30,10,40,80,60,90,100,85,84,87);
+		
+		Assert.assertEquals(true, TPruebas.isPathIn(lista));
+		lista.add(80);
+		Assert.assertEquals(false, TPruebas.isPathIn(lista));
+		
+		Assert.assertEquals("{50 [(Path, 1)], {30 [(Path, 2)], {10 [(Path, 3)], ∅, ∅}, {40, ∅, ∅}}, {80, {60, ∅, ∅}, {90, {85, {84, ∅, ∅}, {87, ∅, ∅}}, {100, ∅, ∅}}}}", TPruebas.toString());
+		
+	}
+	@Test
+	public void tesIsPath1() {
+		//System.out.println(TPruebas.toString());
+		 List<Integer> lista = new ArrayList<Integer>();
+		
+		 TPruebas.insert(50,30,10,40,80,60,90,100,85,84,87);
+		 lista.add(50);
+		 lista.add(80);
+		 lista.add(90);
+		 lista.add(85);
+		 lista.add(87);
+		 
+		 Assert.assertEquals(true, TPruebas.isPathIn(lista));
+		 lista = new ArrayList<Integer>();
+		 lista.add(90);
+		 Assert.assertEquals(false, TPruebas.isPathIn(lista));
+		 
+		 Assert.assertEquals("{50 [(Path, 1)], {30, {10, ∅, ∅}, {40, ∅, ∅}}, {80 [(Path, 2)], {60, ∅, ∅}, {90 [(Path, 3)], {85 [(Path, 4)], {84, ∅, ∅}, {87 [(Path, 5)], ∅, ∅}}, {100, ∅, ∅}}}}", TPruebas.toString());
+	}
+	@Test
+	public void tesIsPath2() {
+		List<Integer> lista = new ArrayList<Integer>();
+		TPruebas.insert(50,30,10,40,80,60,90,100,85,84,87);
+		
+		 lista.add(50);
+		 Assert.assertEquals(true, TPruebas.isPathIn(lista));
+		 Assert.assertEquals("{50 [(Path, 1)], {30, {10, ∅, ∅}, {40, ∅, ∅}}, {80, {60, ∅, ∅}, {90, {85, {84, ∅, ∅}, {87, ∅, ∅}}, {100, ∅, ∅}}}}", TPruebas.toString());
+	}
+	@Test
+	public void tesIsPath3() {
+		List<Integer> lista = new ArrayList<Integer>();
+		TPruebas.insert(50,30,10,40,80,60,90,100,85,84,87);
+		
+		 Assert.assertEquals(true, TPruebas.isPathIn(lista));
+		 
+		 lista = new ArrayList<Integer>();
+		 lista.add(50);
+		 lista.add(75);
+		 Assert.assertEquals(false, TPruebas.isPathIn(lista));
 	}
 	
 	/*
