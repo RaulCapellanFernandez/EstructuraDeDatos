@@ -349,12 +349,39 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 	 * @throws NoSuchElementException si el subarbol no existe
 	 */
 	public BinarySearchTreeADTImpl<T> getSubtreeWithPath(String path) {
-		//TODO implementar el mÃ©todo
+		BinarySearchTreeADTImpl<T> tree = new BinarySearchTreeADTImpl<T>();
+		if(content != null)
+			tree.insert(content);
+		tree = getSubtreeWithPathRec(path, 0, tree);
 		
-		return null;
-		
+		return tree;
 	}	
 	
+	private BinarySearchTreeADTImpl<T> getSubtreeWithPathRec(String path, int i, BinarySearchTreeADTImpl<T> tree) {
+		if(path.length() == 0) {
+			tree.insert(content);
+		}
+		
+		if(path.length() == i)
+			return tree;
+		else if(path.charAt(i)=='0') {
+			System.out.println("Entra");
+			if(getLeftBST().content != null) {
+				tree.insert(getLeftBST().content);
+				getLeftBST().getSubtreeWithPathRec(path, ++i, tree);			
+			}else
+				throw new NoSuchElementException();
+		}
+		else if(path.charAt(i) == '1') {
+			if(getRightBST().content != null) {
+				tree.insert(getRightBST().content);
+				getRightBST().getSubtreeWithPathRec(path, ++i, tree);	
+			}else
+				throw new NoSuchElementException();
+		}
+		return tree;
+	}
+
 	/**
 	 * Acumula en orden descendente, una lista con los pares 'padre-hijo' en este Ã¡rbol.
 	 * 
@@ -423,8 +450,8 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 				}
 				if(!listaElem.contains(content)) {
 					
-					listaElem.add(content);
-					setTag("descend", listaElem.size());
+					/*listaElem.add(content);
+					setTag("descend", listaElem.size());*/
 				}
 			}
 			getLeftBST().parentChildPairsTagDescendRec(buffer, listaElem, num);
@@ -562,9 +589,46 @@ public class BinarySearchTreeADTImpl<T extends Comparable<? super T>> extends
 	 * @return iterador para el recorrido inorden o ascendente
 	 */
 	public Iterator<T> iteratorInorden() {
-		//	TODO Implementar mÃ©todo
 		return null;
-	}	
+		//return new InorderIterator(this);
+	}
+	
+	/*private class InorderIterator implements Iterator<T> {
+		BinarySearchTreeADTImpl<T> arbol;
+		ArrayList <BinarySearchTreeADTImpl<T>> lista =new ArrayList<BinarySearchTreeADTImpl<T>>();
+		T elem = (T) arbol;
+		public InorderIterator(BinarySearchTreeADTImpl<T> arbolParam) {
+			arbol = arbolParam;
+			
+			
+		}
+		@Override
+		public boolean hasNext() {
+			if(lista.get(0).content!=null)
+				return true;
+			return false;
+		}
+		@Override
+		public T next() {
+		
+			if(lista.get(0).getLeftBST().content!=null) {
+				lista.add(lista.get(0).getLeftBST());
+				//next();
+			}
+			if(lista.get(0).content != null) {
+				T c = lista.get(0).content;
+				lista.remove(0);
+				return c;
+			}
+			
+			if(lista.get(0).getRightBST().content!=null){
+				lista.add(lista.get(0).getRightBST());
+				//next();
+			}
+			return content;
+		}
+
+	}*/
 	
 }
 

@@ -4,8 +4,10 @@ package ule.edi.tree;
 import java.nio.charset.CoderMalfunctionError;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -96,6 +98,7 @@ public class BinarySearchTreeADTTests {
 	 */
 	
 	private BinarySearchTreeADTImpl<Integer> TPruebas = null;
+	private BinarySearchTreeADTImpl<String> TPruebas1 = null;
 	
 	private BinarySearchTreeADTImpl<Integer> TV1 = null;
 
@@ -104,6 +107,7 @@ public class BinarySearchTreeADTTests {
 		
 		TE = new BinarySearchTreeADTImpl<Integer>();
 		TPruebas = new BinarySearchTreeADTImpl<Integer>();
+		TPruebas1 = new BinarySearchTreeADTImpl<String>();
 		
 		T1234 = new BinarySearchTreeADTImpl<Integer>();
 		T1234.insert(1,2,3,4);
@@ -127,14 +131,13 @@ public class BinarySearchTreeADTTests {
 		
 		
 	}
-	/*
+	
 	@Test
 	public void testConstructorInsert() {
 		Assert.assertEquals("∅", TPruebas.toString());
 		
 		TPruebas.insert(10, 5, 4, 13, 3, 1, 17, 11, 10, 15, 20, 7, 19, 21, 14, 12);
 		Assert.assertEquals("{10, {5, {4, {3, {1, ∅, ∅}, ∅}, ∅}, {7, ∅, ∅}}, {13, {11, ∅, {12, ∅, ∅}}, {17, {15, {14, ∅, ∅}, ∅}, {20, {19, ∅, ∅}, {21, ∅, ∅}}}}}", TPruebas.toString());
-		System.out.println(TPruebas.toString());
 		
 		TPruebas.withdraw(14);
 	}
@@ -148,7 +151,7 @@ public class BinarySearchTreeADTTests {
 		
 		Assert.assertEquals("{1, ∅, {2, ∅, ∅}}", TPruebas.toString());
 	}
-	*/
+	
 	@Test
 	public void testWithdrawElement() {
 		TPruebas.insert(3);
@@ -250,7 +253,6 @@ public class BinarySearchTreeADTTests {
 	}
 	@Test
 	public void tesIsPath1() {
-		//System.out.println(TPruebas.toString());
 		 List<Integer> lista = new ArrayList<Integer>();
 		
 		 TPruebas.insert(50,30,10,40,80,60,90,100,85,84,87);
@@ -292,19 +294,46 @@ public class BinarySearchTreeADTTests {
 	public void testTagWidth() {
 		TPruebas.insert(50,30,10,40,80,60);
 		TPruebas.tagWidth();
-		System.out.println(TPruebas.toString());
 		
 		//Lo he hecho como en los apuntes
 		Assert.assertEquals("{50 [(width, 1)], {30 [(width, 2)], {10 [(width, 4)], ∅, ∅}, {40 [(width, 5)], ∅, ∅}}, {80 [(width, 3)], {60 [(width, 6)], ∅, ∅}, ∅}}", TPruebas.toString());
 	}
 	
-	/*
-	 * 
+	
 	@Test(expected = IllegalArgumentException.class)
-	public void testRemoveLastEmptyException() throws IllegalArgumentException {
-		
-		TPruebas.insert();
-	}*/
+	public void testInsertException() throws IllegalArgumentException {
+		List<String> lista = new ArrayList<String>();
+		lista.add(null);
+		TPruebas1.insert(lista);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testInsert1Exception() throws IllegalArgumentException {
+		List<String> lista = new ArrayList<String>();
+		lista.add(null);
+		TPruebas1.insert("1",null);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testInsert2Exception() throws IllegalArgumentException {
+		String nom = null;
+		TPruebas1.insert(nom);;
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testWithdrawException() throws IllegalArgumentException {
+		List<String> lista = new ArrayList<String>();
+		lista.add(null);
+		TPruebas1.withdraw(lista);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testWithdraw1Exception() throws IllegalArgumentException {
+		List<String> lista = new ArrayList<String>();
+		lista.add(null);
+		TPruebas1.withdraw("1", null);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testWithdraw2Exception() throws IllegalArgumentException {
+		String nom = null;
+		TPruebas1.withdraw(nom);
+	}
 
 	
 		@Test
@@ -316,6 +345,36 @@ public class BinarySearchTreeADTTests {
 			Assert.assertEquals("{50 [(descend, 4)], {20 [(descend, 5)], {10 [(descend, 7)], ∅, ∅}, {30 [(descend, 6)], ∅, ∅}}, {80 [(descend, 2)], {70 [(descend, 3)], ∅, ∅}, {90 [(descend, 1)], ∅, ∅}}}", TC3.toString());
 			
 		}
+		@Test
+		public void testGetSubtreeWithPath() {
+			String path ="01";
+			TPruebas.insert(50,30,10,35,80);
+
+			Assert.assertEquals("{50, {30, ∅, {35, ∅, ∅}}, ∅}", TPruebas.getSubtreeWithPath(path).toString());
+			path="";
+			Assert.assertEquals("{50, ∅, ∅}", TPruebas.getSubtreeWithPath(path).toString());
+		}
+		@Test(expected = NoSuchElementException.class)
+		public void testGetSubtreePathException() throws NoSuchElementException {
+			String path ="01011111";
+			TPruebas.insert(50,30,10,35,80);
+			TPruebas.getSubtreeWithPath(path);
+		}
+		@Test(expected = NoSuchElementException.class)
+		public void testGetSubtreePathException1() throws NoSuchElementException {
+			String path ="1111111";
+			TPruebas.insert(50,30,10,35,80);
+			TPruebas.getSubtreeWithPath(path);
+		}
+		/*
+		@Test
+		public void testIteratorInOrder() {
+			TPruebas.insert(50,30,10,80);
+			Iterator<Integer> iteratorIn = TPruebas.iteratorInorden();
+			
+			Assert.assertEquals(true, iteratorIn.hasNext());
+			Assert.assertEquals(true, iteratorIn.next());
+		}*/
 	}
 
 
